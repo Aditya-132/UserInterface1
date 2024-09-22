@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FaUserPlus, FaEdit, FaBars } from 'react-icons/fa';
 import { MdOutlineQuiz, MdWorkOutline, MdAssessment, MdWeb, MdEventAvailable } from 'react-icons/md';
 import EmailVerification from "../components/EmailVerification";
-import SidebarLink from '../components/SidebarLink';
 
 const Home = () => {
   const [showEmailVerification, setShowEmailVerification] = useState(false);
@@ -37,49 +36,40 @@ const Home = () => {
 
           {/* Navigation Links */}
           <nav className="mt-10 flex flex-col items-center md:items-start w-full space-y-2">
-            <SidebarLink
-              to="/newApplicant"
-              icon={FaUserPlus}
-              label="New Application"
-              tooltip="Create a new application form to get started with your verification process."
-            />
-            <SidebarLink
-{/*               to="/check" */}
-             onClick={() => setShowEmailVerification(true)}
-              icon={FaEdit}
-              label="Change / View Application"
-              tooltip="Edit your application details or view the current status of your submission."
-            />
-            <SidebarLink
-              to="/aptitude-test"
-              icon={MdOutlineQuiz}
-              label="Aptitude Test"
-              tooltip="Access the aptitude test to evaluate your skills as part of the application process."
-            />
-            <SidebarLink
-              to="https://www.glassdoor.co.in/Community/index.html"
-              icon={MdWorkOutline}
-              label="Internships"
-              tooltip="Explore available internships and apply directly through our platform."
-            />
-            <SidebarLink
-              to="https://sggsplacements.in/"
-              icon={MdAssessment}
-              label="Placement Report"
-              tooltip="View detailed placement reports and statistics of previous applicants."
-            />
-            <SidebarLink
-              to="https://iccpm.com/training-development/online-workshop-webinars/"
-              icon={MdWeb}
-              label="Workshop/Webinar"
-              tooltip="Join our online workshops and webinars to enhance your skills and knowledge."
-            />
-            <SidebarLink
-              to="https://www.sggs.ac.in/"
-              icon={MdEventAvailable}
-              label="Achievements"
-              tooltip="Check out the latest achievements and milestones of our application portal."
-            />
+            <Link to="/newApplicant" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md">
+              <FaUserPlus />
+              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>New Application</span>
+            </Link>
+
+            <div onClick={() => setShowEmailVerification(true)} className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer">
+              <FaEdit />
+              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Change / View Application</span>
+            </div>
+
+            <Link to="/aptitude-test" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md">
+              <MdOutlineQuiz />
+              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Aptitude Test</span>
+            </Link>
+
+            <a href="https://www.glassdoor.co.in/Community/index.html" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md" target="_blank" rel="noopener noreferrer">
+              <MdWorkOutline />
+              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Internships</span>
+            </a>
+
+            <a href="https://sggsplacements.in/" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md" target="_blank" rel="noopener noreferrer">
+              <MdAssessment />
+              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Placement Report</span>
+            </a>
+
+            <a href="https://iccpm.com/training-development/online-workshop-webinars/" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md" target="_blank" rel="noopener noreferrer">
+              <MdWeb />
+              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Workshop/Webinar</span>
+            </a>
+
+            <a href="https://www.sggs.ac.in/" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md" target="_blank" rel="noopener noreferrer">
+              <MdEventAvailable />
+              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Achievements</span>
+            </a>
           </nav>
         </div>
 
