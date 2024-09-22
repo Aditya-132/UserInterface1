@@ -44,7 +44,7 @@ const Home = () => {
               tooltip="Create a new application form to get started with your verification process."
             />
             <SidebarLink
-              to="#"
+              to="/check"
               icon={FaEdit}
               label="Change / View Application"
               tooltip="Edit your application details or view the current status of your submission."
