@@ -149,7 +149,7 @@ const JobApplicationDetail = ({ email }) => {
           <select
             value={jobApplication[field]}
             onChange={(e) => handleInputChange(e, field)}
-            className="border border-gray-900 p-2 rounded w-full"
+            className="border border-gray-900 p-2 rounded w-full bg-gray-600"
           >
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -159,7 +159,7 @@ const JobApplicationDetail = ({ email }) => {
           <textarea
             value={jobApplication[field]}
             onChange={(e) => handleInputChange(e, field)}
-            className="border border-gray-900 p-2 rounded w-full"
+            className="border border-gray-900 p-2 rounded w-full bg-gray-600"
           />
         ) : (
           <input
@@ -170,7 +170,7 @@ const JobApplicationDetail = ({ email }) => {
                 : jobApplication[field]
             }
             onChange={(e) => handleInputChange(e, field)}
-            className="border border-gray-900 p-2 rounded w-full"
+            className="border border-gray-900 p-2 rounded w-full bg-gray-600"
           />
         )
       ) : (
@@ -206,7 +206,7 @@ const JobApplicationDetail = ({ email }) => {
             type="file"
             onChange={(e) => handleInputChange(e, field)}
             accept={acceptType}
-            className="border border-gray-900 p-2 rounded w-full"
+            className="border border-gray-900 p-2 rounded w-full bg-gray-600"
           />
           <FaSave
             onClick={() => saveChanges(field)}
