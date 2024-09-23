@@ -67,8 +67,9 @@ const App = () => {
   }
 
   return (
+    <>
+      {/* <Home /> */}
     <Router>
-      {/* <Navbar /> */}
       <Routes>
         <Route index path="/" element={<Home />} />
         <Route path="/newApplicant" element={<Appointment />} />
@@ -85,6 +86,7 @@ const App = () => {
       {/* <Footer /> */}
       <ToastContainer position="top-center" />
     </Router>
+    </>
   );
 };
 
