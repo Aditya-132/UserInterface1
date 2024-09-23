@@ -26,10 +26,8 @@ const JobApplicationDetail = ({ email }) => {
   
     const fetchJobApplication = async () => {
       try {
-        const response = await fetch(${yy}/api/v1/jobApplication/details/${email}, {
-          headers: {
-            'Authorization': Bearer ${token}
-          },
+        const response = await fetch(`${yy}/api/v1/jobApplication/details/${email}`, {
+          
           credentials: "include",
         });
         const data = await response.json();
@@ -249,7 +247,7 @@ const JobApplicationDetail = ({ email }) => {
 
   return (
     <>
-      <div className="job-application-detail p-6 bg-white shadow-lg rounded-lg max-w-4xl mx-auto overflow-y-auto">
+      <div className="job-application-detail p-6 bg-black shadow-lg rounded-lg max-w-4xl mx-auto overflow-y-auto">
         <div className="header mb-6 text-center flex justify-between items-center">
         {/* {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
@@ -347,7 +345,7 @@ const JobApplicationDetail = ({ email }) => {
         </div>
         <div className="details-container space-y-6">
           {currentSection === "personal-information" && (
-            <section className="detail-card p-4 bg-gray-100 rounded">
+            <section className="detail-card p-4 bg-gray-800 rounded">
               <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
               {renderField("fullName", "Name", true)}
               {renderField("email", "Email", false)}
@@ -358,7 +356,7 @@ const JobApplicationDetail = ({ email }) => {
           )}
           {currentSection === "educational-background" && (
             <div className="overflow-y max-h-60">
-            <section className="detail-card p-4 bg-gray-100 rounded ">
+            <section className="detail-card p-4 bg-gray-800 rounded ">
               <h2 className="text-xl font-semibold mb-4">Educational Background</h2>
               {renderField("cgpa", "CGPA", true)}
               {renderField("ssc", "SSC", true)}
@@ -374,7 +372,7 @@ const JobApplicationDetail = ({ email }) => {
             </div>
           )}
           {currentSection === "professional-experience" && (
-            <section className="detail-card p-4 bg-gray-100 rounded">
+            <section className="detail-card p-4 bg-gray-800 rounded">
               <h2 className="text-xl font-semibold mb-4">Professional Experience</h2>
               {renderField("projects", "Projects", true, "textarea")}
               {renderField("internship", "Internship", true)}
@@ -382,7 +380,7 @@ const JobApplicationDetail = ({ email }) => {
             </section>
           )}
           {currentSection === "additional-information" && (
-            <section className="detail-card p-4 bg-gray-100 rounded">
+            <section className="detail-card p-4 bg-gray-800 rounded">
               <h2 className="text-xl font-semibold mb-4">Additional Information</h2>
               {renderField("branch", "Branch", true)}
               {renderField("skills", "Skills", true, "textarea")}
