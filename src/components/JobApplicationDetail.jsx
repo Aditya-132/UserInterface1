@@ -110,7 +110,7 @@ const JobApplicationDetail = ({ email }) => {
       const formData = new FormData();
       formData.append(field, jobApplication[field]);
 
-      const endpoint = ${yy}/api/v1/jobApplication/update/${jobApplication._id};
+      const endpoint = `${yy}/api/v1/jobApplication/update/${jobApplication._id}`;
       const response = await fetch(endpoint, {
         method: "PUT",
         body: formData,
