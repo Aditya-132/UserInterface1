@@ -68,43 +68,55 @@ const EmailVerification = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r">
-      <div className="p-6 bg-white shadow-lg rounded-lg w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen bg-gray-900"> {/* Dark background */}
+      <div className="p-6 bg-gray-800 shadow-lg rounded-lg w-full max-w-md"> {/* Dark container */}
         {!otpSent ? (
           <>
-            <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">Enter Your Email to View Details</h2>
+            <h2 className="text-2xl font-bold mb-4 text-gray-200 text-center"> {/* Light text */}
+              Enter Your Email to View Details
+            </h2>
             <input
               type="email"
               placeholder="Email"
               value={email}
+
               onChange={(e) => {
                 setEmail(e.target.value)
               }}
               className="mb-4 p-2 border border-gray-300 text-black rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
+
+              onChange={(e) => setEmail(e.target.value)}
+              className="mb-4 p-2 border border-gray-600 bg-gray-700 text-gray-200 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+
             />
             <button
               onClick={sendOtp}
               disabled={loading || otpSent} // Disable button when loading or OTP is sent
-              className={`w-full bg-blue-500 text-white px-4 py-2 rounded transition-colors duration-300 ${loading || otpSent ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-700'}`}
+              className={`w-full bg-blue-600 text-white px-4 py-2 rounded transition-colors duration-300 ${loading || otpSent ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'}`}
             >
-              {loading ? "Please wait..." : "Send OTP"} {/* Show loading message */}
+              {loading ? "Please wait..." : "Send OTP"}
             </button>
           </>
         ) : (
           <>
-            <h2 className="text-xl font-bold mb-4 mt-6 text-gray-800 text-center">Enter OTP</h2>
+            <h2 className="text-xl font-bold mb-4 mt-6 text-gray-200 text-center">Enter OTP</h2>
             <input
               type="text"
               placeholder="Enter OTP"
               value={otp}
+
               onChange={(e) => {
                 setOtp(e.target.value);
               }}
               className="mb-4 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+
+              onChange={(e) => setOtp(e.target.value)}
+              className="mb-4 p-2 border border-gray-600 bg-gray-700 text-gray-200 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+
             />
             <button
               onClick={verifyOtp}
-              className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
+              className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
             >
               Verify OTP
             </button>
