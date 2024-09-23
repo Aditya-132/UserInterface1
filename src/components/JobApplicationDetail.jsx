@@ -149,7 +149,7 @@ const JobApplicationDetail = ({ email }) => {
           <select
             value={jobApplication[field]}
             onChange={(e) => handleInputChange(e, field)}
-            className="border border-gray-300 p-2 rounded w-full"
+            className="border border-gray-900 p-2 rounded w-full"
           >
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -159,7 +159,7 @@ const JobApplicationDetail = ({ email }) => {
           <textarea
             value={jobApplication[field]}
             onChange={(e) => handleInputChange(e, field)}
-            className="border border-gray-300 p-2 rounded w-full"
+            className="border border-gray-900 p-2 rounded w-full"
           />
         ) : (
           <input
@@ -170,7 +170,7 @@ const JobApplicationDetail = ({ email }) => {
                 : jobApplication[field]
             }
             onChange={(e) => handleInputChange(e, field)}
-            className="border border-gray-300 p-2 rounded w-full"
+            className="border border-gray-900 p-2 rounded w-full"
           />
         )
       ) : (
@@ -206,7 +206,7 @@ const JobApplicationDetail = ({ email }) => {
             type="file"
             onChange={(e) => handleInputChange(e, field)}
             accept={acceptType}
-            className="border border-gray-300 p-2 rounded w-full"
+            className="border border-gray-900 p-2 rounded w-full"
           />
           <FaSave
             onClick={() => saveChanges(field)}
@@ -290,9 +290,9 @@ const JobApplicationDetail = ({ email }) => {
                   setMenuOpen(false);
                 }}
                 className={`${
-                  currentSection === "personal-information" ? "text-blue-600" : "text-blue-500"
+                  currentSection === "personal-information" ? "text-white" : "text-white"
                 } hover:underline px-4 py-2 rounded-lg ${
-                  currentSection === "personal-information" ? "text-blue-500" : ""
+                  currentSection === "personal-information" ? "text-white" : ""
                 }`}
               >
                 Personal Information
@@ -305,9 +305,9 @@ const JobApplicationDetail = ({ email }) => {
                   setMenuOpen(false);
                 }}
                 className={`${
-                  currentSection === "educational-background" ? "text-blue-600" : "text-blue-500"
+                  currentSection === "educational-background" ? "text-whitw" : "text-white"
                 } hover:underline px-4 py-2 rounded-lg ${
-                  currentSection === "educational-background" ? "text-blue-500" : ""
+                  currentSection === "educational-background" ? "text-white" : ""
                 }`}
               >
                 Educational Background
@@ -320,9 +320,9 @@ const JobApplicationDetail = ({ email }) => {
                   setMenuOpen(false);
                 }}
                 className={`${
-                  currentSection === "professional-experience" ? "text-blue-600" : "text-blue-500"
+                  currentSection === "professional-experience" ? "text-white" : "text-white"
                 } hover:underline px-4 py-2 rounded-lg ${
-                  currentSection === "professional-experience" ? "text-blue-500" : ""
+                  currentSection === "professional-experience" ? "text-white" : ""
                 }`}
               >
                 Professional Experience
@@ -335,9 +335,9 @@ const JobApplicationDetail = ({ email }) => {
                   setMenuOpen(false);
                 }}
                 className={`${
-                  currentSection === "additional-information" ? "text-blue-600" : "text-blue-500"
+                  currentSection === "additional-information" ? "text-white" : "text-white"
                 } hover:underline px-4 py-2 rounded-lg ${
-                  currentSection === "additional-information" ? "text-blue-500" : ""
+                  currentSection === "additional-information" ? "text-white" : ""
                 }`}
               >
                 Additional Information
@@ -426,7 +426,7 @@ const JobApplicationDetail = ({ email }) => {
             <div>
               <img src={proofUrl} alt="Proof Document" className="w-full h-auto" />
               <div className="text-center mt-4">
-                <a href={proofUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                <a href={proofUrl} target="_blank" rel="noopener noreferrer" className="text-gray-900 underline">
                   Open Document
                 </a>
               </div>
