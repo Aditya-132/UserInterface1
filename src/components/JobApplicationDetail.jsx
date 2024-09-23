@@ -347,7 +347,7 @@ const JobApplicationDetail = ({ email }) => {
         </div>
         <div className="details-container space-y-6">
           {currentSection === "personal-information" && (
-            <section className="detail-card p-4 bg-gray-900 rounded">
+            <section className="detail-card p-4 bg-gray-800 rounded">
               <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
               {renderField("fullName", "Name", true)}
               {renderField("email", "Email", false)}
@@ -358,7 +358,7 @@ const JobApplicationDetail = ({ email }) => {
           )}
           {currentSection === "educational-background" && (
             <div className="overflow-y max-h-60">
-            <section className="detail-card p-4 bg-gray-900 rounded ">
+            <section className="detail-card p-4 bg-gray-800 rounded ">
               <h2 className="text-xl font-semibold mb-4">Educational Background</h2>
               {renderField("cgpa", "CGPA", true)}
               {renderField("ssc", "SSC", true)}
@@ -374,7 +374,7 @@ const JobApplicationDetail = ({ email }) => {
             </div>
           )}
           {currentSection === "professional-experience" && (
-            <section className="detail-card p-4 bg-gray-900 rounded">
+            <section className="detail-card p-4 bg-gray-800 rounded">
               <h2 className="text-xl font-semibold mb-4">Professional Experience</h2>
               {renderField("projects", "Projects", true, "textarea")}
               {renderField("internship", "Internship", true)}
@@ -382,7 +382,7 @@ const JobApplicationDetail = ({ email }) => {
             </section>
           )}
           {currentSection === "additional-information" && (
-            <section className="detail-card p-4 bg-gray-900 rounded">
+            <section className="detail-card p-4 bg-gray-800 rounded">
               <h2 className="text-xl font-semibold mb-4">Additional Information</h2>
               {renderField("branch", "Branch", true)}
               {renderField("skills", "Skills", true, "textarea")}
