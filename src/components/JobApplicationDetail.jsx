@@ -94,7 +94,7 @@ const JobApplicationDetail = ({ email }) => {
       const maxSize = field === 'cgpaProof' ? 5 : 1; // 5 MB for cgpaProof, 1 MB for others
   
       if (fileSize > maxSize) {
-        alert(File size should not exceed ${maxSize} MB.);
+        alert(`File size should not exceed ${maxSize} MB.`);
         return;
       }
       setJobApplication({ ...jobApplication, [field]: file });
