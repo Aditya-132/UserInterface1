@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import JobApplicationDetail from "./JobApplicationDetail";
 
 const EmailVerification = () => {
-  const yy="https://backend1-96bk.onrender.com";
+  const yy = "https://backend1-96bk.onrender.com";
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -16,6 +16,7 @@ const EmailVerification = () => {
   const sendOtp = async () => {
     setLoading(true); // Start loading
     try {
+      console.log(email);
       const response = await fetch(`${yy}/api/v1/sendOtp`, {
         method: "POST",
         headers: {
@@ -61,6 +62,7 @@ const EmailVerification = () => {
     }
   };
 
+
   if (isVerified) {
     return <JobApplicationDetail email={email} />;
   }
@@ -75,8 +77,10 @@ const EmailVerification = () => {
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mb-4 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
+              onChange={(e) => {
+                setEmail(e.target.value)
+              }}
+              className="mb-4 p-2 border border-gray-300 text-black rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
             />
             <button
               onClick={sendOtp}
@@ -93,7 +97,9 @@ const EmailVerification = () => {
               type="text"
               placeholder="Enter OTP"
               value={otp}
-              onChange={(e) => setOtp(e.target.value)}
+              onChange={(e) => {
+                setOtp(e.target.value);
+              }}
               className="mb-4 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
             />
             <button
@@ -111,3 +117,5 @@ const EmailVerification = () => {
 };
 
 export default EmailVerification;
+
+// shivharehariom68@gmail.com
