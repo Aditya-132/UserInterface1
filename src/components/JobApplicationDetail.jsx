@@ -27,7 +27,9 @@ const JobApplicationDetail = ({ email }) => {
     const fetchJobApplication = async () => {
       try {
         const response = await fetch(`${yy}/api/v1/jobApplication/details/${email}`, {
-          
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
           credentials: "include",
         });
         const data = await response.json();
@@ -240,14 +242,14 @@ const JobApplicationDetail = ({ email }) => {
   };
 
   const renderStatus = (status) => (
-    <div className={status-indicator p-2 rounded ${getStatusStyles(status)}}>
+    <div className={`status-indicator p-2 rounded ${getStatusStyles(status)}`}>
       {status}
     </div>
   );
 
   return (
     <>
-      <div className="job-application-detail p-6 bg-black shadow-lg rounded-lg max-w-4xl mx-auto overflow-y-auto">
+      <div className="job-application-detail p-6 bg-white shadow-lg rounded-lg max-w-4xl mx-auto overflow-y-auto">
         <div className="header mb-6 text-center flex justify-between items-center">
         {/* {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
@@ -280,18 +282,18 @@ const JobApplicationDetail = ({ email }) => {
               {menuOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
-          <ul className={md:flex space-x-4 justify-center text-lg ${menuOpen ? "block" : "hidden"} md:block}>
+          <ul className={`md:flex space-x-4 justify-center text-lg ${menuOpen ? "block" : "hidden"} md:block`}>
             <li>
               <button
                 onClick={() => {
                   setCurrentSection("personal-information");
                   setMenuOpen(false);
                 }}
-                className={${
+                className={`${
                   currentSection === "personal-information" ? "text-blue-600" : "text-blue-500"
                 } hover:underline px-4 py-2 rounded-lg ${
                   currentSection === "personal-information" ? "text-blue-500" : ""
-                }}
+                }`}
               >
                 Personal Information
               </button>
@@ -302,11 +304,11 @@ const JobApplicationDetail = ({ email }) => {
                   setCurrentSection("educational-background");
                   setMenuOpen(false);
                 }}
-                className={${
+                className={`${
                   currentSection === "educational-background" ? "text-blue-600" : "text-blue-500"
                 } hover:underline px-4 py-2 rounded-lg ${
                   currentSection === "educational-background" ? "text-blue-500" : ""
-                }}
+                }`}
               >
                 Educational Background
               </button>
@@ -317,11 +319,11 @@ const JobApplicationDetail = ({ email }) => {
                   setCurrentSection("professional-experience");
                   setMenuOpen(false);
                 }}
-                className={${
+                className={`${
                   currentSection === "professional-experience" ? "text-blue-600" : "text-blue-500"
                 } hover:underline px-4 py-2 rounded-lg ${
                   currentSection === "professional-experience" ? "text-blue-500" : ""
-                }}
+                }`}
               >
                 Professional Experience
               </button>
@@ -332,11 +334,11 @@ const JobApplicationDetail = ({ email }) => {
                   setCurrentSection("additional-information");
                   setMenuOpen(false);
                 }}
-                className={${
+                className={`${
                   currentSection === "additional-information" ? "text-blue-600" : "text-blue-500"
                 } hover:underline px-4 py-2 rounded-lg ${
                   currentSection === "additional-information" ? "text-blue-500" : ""
-                }}
+                }`}
               >
                 Additional Information
               </button>
@@ -345,7 +347,7 @@ const JobApplicationDetail = ({ email }) => {
         </div>
         <div className="details-container space-y-6">
           {currentSection === "personal-information" && (
-            <section className="detail-card p-4 bg-gray-800 rounded">
+            <section className="detail-card p-4 bg-gray-100 rounded">
               <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
               {renderField("fullName", "Name", true)}
               {renderField("email", "Email", false)}
@@ -356,7 +358,7 @@ const JobApplicationDetail = ({ email }) => {
           )}
           {currentSection === "educational-background" && (
             <div className="overflow-y max-h-60">
-            <section className="detail-card p-4 bg-gray-800 rounded ">
+            <section className="detail-card p-4 bg-gray-100 rounded ">
               <h2 className="text-xl font-semibold mb-4">Educational Background</h2>
               {renderField("cgpa", "CGPA", true)}
               {renderField("ssc", "SSC", true)}
@@ -372,7 +374,7 @@ const JobApplicationDetail = ({ email }) => {
             </div>
           )}
           {currentSection === "professional-experience" && (
-            <section className="detail-card p-4 bg-gray-800 rounded">
+            <section className="detail-card p-4 bg-gray-100 rounded">
               <h2 className="text-xl font-semibold mb-4">Professional Experience</h2>
               {renderField("projects", "Projects", true, "textarea")}
               {renderField("internship", "Internship", true)}
@@ -380,7 +382,7 @@ const JobApplicationDetail = ({ email }) => {
             </section>
           )}
           {currentSection === "additional-information" && (
-            <section className="detail-card p-4 bg-gray-800 rounded">
+            <section className="detail-card p-4 bg-gray-100 rounded">
               <h2 className="text-xl font-semibold mb-4">Additional Information</h2>
               {renderField("branch", "Branch", true)}
               {renderField("skills", "Skills", true, "textarea")}
