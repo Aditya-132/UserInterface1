@@ -269,8 +269,8 @@ const JobApplicationDetail = ({ email }) => {
           </div>
           <div className="profile-info text-center md:text-left">
             <h2 className="text-2xl font-semibold">{jobApplication.fullName}</h2>
-            <p className="text-gray-600">{jobApplication.email}</p>
-            <p className="text-gray-600">{jobApplication.phone}</p>
+            <p className="text-white">{jobApplication.email}</p>
+            <p className="text-white">{jobApplication.phone}</p>
           </div>
         </div>
         <div className="navbar mb-6">
