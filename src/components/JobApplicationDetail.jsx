@@ -25,68 +25,14 @@ const JobApplicationDetail = ({ email }) => {
     }
     const fetchJobApplication = async () => {
       try {
-        // Fetching data logic here...
+       const response = await fetch(`${yy}/api/v1/jobApplication/details/${email}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        credentials: "include",
+      });
+      const data = await response.json();
 
-        const response = {
-          "ok": true
-        }
-        const data = {
-          jobApplication: {
-            "reg": "asasad",
-            "fullName": "sdsdsdsd",
-            "email": "1@gmail.com",
-            "phone": "123456789",
-            "cgpa": "1",
-            "cgpaProof": {
-              "lastModified": 1721372041862,
-              "name": "BTech Admission Fees Receipt.pdf",
-              "size": 37541,
-              "type": "application/pdf"
-            },
-            "dob": "2024-09-18",
-            "gender": "Male",
-            "ssc": "12",
-            "sscProof": {
-              "lastModified": 1721372041862,
-              "name": "BTech Admission Fees Receipt.pdf",
-              "size": 37541,
-              "type": "application/pdf"
-            },
-            "hsc": "21",
-            "hscProof": {
-              "lastModified": 1721372041862,
-              "name": "BTech Admission Fees Receipt.pdf",
-              "size": 37541,
-              "type": "application/pdf"
-            },
-            "projects": "1",
-            "internship": "1",
-            "internshipProof": {
-              "lastModified": 1721372041862,
-              "name": "BTech Admission Fees Receipt.pdf",
-              "size": 37541,
-              "type": "application/pdf"
-            },
-            "branch": "CSE",
-            "gap_year": "1",
-            "gap_yearProof": {
-              "lastModified": 1721372041862,
-              "name": "BTech Admission Fees Receipt.pdf",
-              "size": 37541,
-              "type": "application/pdf"
-            },
-            "address": "qsqs",
-            "skills": "qwqw",
-            "references": "wqww",
-            "backlogs": "1",
-            "profilePhotoProof": {
-              "lastModified": 1721372041862,
-              "name": "BTech Admission Fees Receipt.pdf",
-              "size": 37541,
-              "type": "application/pdf"
-            }
-          }
-        }
         if (response.ok) {  
           setJobApplication(data.jobApplication);
           setIsLoading(false);
@@ -313,66 +259,3 @@ const JobApplicationDetail = ({ email }) => {
 
 export default JobApplicationDetail;
 
-// const response = await fetch(`${yy}/api/v1/jobApplication/details/${email}`, {
-//   headers: {
-//     'Authorization': `Bearer ${token}`
-//   },
-//   credentials: "include",
-// });
-// const data = await response.json();
-
-// const jobApplication= {
-//   "reg": "asasad",
-//   "fullName": "sdsdsdsd",
-//   "email": "1@gmail.com",
-//   "phone": "123456789",
-//   "cgpa": "1",
-//   "cgpaProof": {
-//     "lastModified": 1721372041862,
-//     "name": "BTech Admission Fees Receipt.pdf",
-//     "size": 37541,
-//     "type": "application/pdf"
-//   },
-//   "dob": "2024-09-18",
-//   "gender": "Male",
-//   "ssc": "12",
-//   "sscProof": {
-//     "lastModified": 1721372041862,
-//     "name": "BTech Admission Fees Receipt.pdf",
-//     "size": 37541,
-//     "type": "application/pdf"
-//   },
-//   "hsc": "21",
-//   "hscProof": {
-//     "lastModified": 1721372041862,
-//     "name": "BTech Admission Fees Receipt.pdf",
-//     "size": 37541,
-//     "type": "application/pdf"
-//   },
-//   "projects": "1",
-//   "internship": "1",
-//   "internshipProof": {
-//     "lastModified": 1721372041862,
-//     "name": "BTech Admission Fees Receipt.pdf",
-//     "size": 37541,
-//     "type": "application/pdf"
-//   },
-//   "branch": "CSE",
-//   "gap_year": "1",
-//   "gap_yearProof": {
-//     "lastModified": 1721372041862,
-//     "name": "BTech Admission Fees Receipt.pdf",
-//     "size": 37541,
-//     "type": "application/pdf"
-//   },
-//   "address": "qsqs",
-//   "skills": "qwqw",
-//   "references": "wqww",
-//   "backlogs": "1",
-//   "profilePhotoProof": {
-//     "lastModified": 1721372041862,
-//     "name": "BTech Admission Fees Receipt.pdf",
-//     "size": 37541,
-//     "type": "application/pdf"
-//   }
-// }

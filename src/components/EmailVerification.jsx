@@ -15,20 +15,16 @@ const EmailVerification = () => {
 
   const sendOtp = async () => {
     setLoading(true); // Start loading
-    setIsVerified(true);
     try {
-      // console.log(email);
-      // const response = await fetch(`${yy}/api/v1/sendOtp`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ email }),
-      // });
-      // const data = await response.json();
-      const data = {
-        success:true
-      }
+      console.log(email);
+      const response = await fetch(`${yy}/api/v1/sendOtp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
       if (data.success) {
         setOtpSent(true);
         toast.success("OTP sent to your email");
