@@ -144,6 +144,7 @@ const JobApplicationForm = () => {
 
   const handleJobApplication = async (e) => {
     e.preventDefault();
+    console.log(formData)
     if (!otpVerified) {
       toast.error("Please verify your email with the OTP sent to you");
       return;
@@ -258,6 +259,7 @@ const JobApplicationForm = () => {
 
   const toggleTheme = () => {
     setTheme(prev => prev === "dark" ? "light" : "dark");
+    // setOtpVerified(true)
   };
 
   return (

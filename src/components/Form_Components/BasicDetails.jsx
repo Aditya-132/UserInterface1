@@ -20,4 +20,3 @@ export const BasicDetails = ({ formData, handleChange, loading, sendOtp, otpSent
     <SelectField label="Gender" name="gender" value={formData.gender} options={["", "Male", "Female", "Other"]} onChange={handleChange} disabled={loading} required />
   </div>
 );
-
