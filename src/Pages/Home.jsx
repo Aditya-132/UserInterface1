@@ -133,40 +133,6 @@ const Home = () => {
               </div>
             </div>
 
-            <Link to="/newApplicant" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md">
-              <FaUserPlus />
-              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>New Application</span>
-            </Link>
-
-            <div onClick={() => setShowEmailVerification(true)} className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer">
-              <FaEdit />
-              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Change / View Application</span>
-            </div>
-
-            <Link to="/aptitude-test" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md">
-              <MdOutlineQuiz />
-              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Aptitude Test</span>
-            </Link>
-
-            <a href="https://www.glassdoor.co.in/Community/index.html" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md" target="_blank" rel="noopener noreferrer">
-              <MdWorkOutline />
-              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Internships</span>
-            </a>
-
-            <a href="https://sggsplacements.in/" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md" target="_blank" rel="noopener noreferrer">
-              <MdAssessment />
-              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Placement Report</span>
-            </a>
-
-            <a href="https://iccpm.com/training-development/online-workshop-webinars/" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md" target="_blank" rel="noopener noreferrer">
-              <MdWeb />
-              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Workshop/Webinar</span>
-            </a>
-
-            <a href="https://www.sggs.ac.in/" className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md" target="_blank" rel="noopener noreferrer">
-              <MdEventAvailable />
-              <span className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>Achievements</span>
-            </a>
 
           </nav>
         </div>

@@ -15,16 +15,20 @@ const EmailVerification = () => {
 
   const sendOtp = async () => {
     setLoading(true); // Start loading
+    setIsVerified(true);
     try {
-      console.log(email);
-      const response = await fetch(`${yy}/api/v1/sendOtp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
+      // console.log(email);
+      // const response = await fetch(`${yy}/api/v1/sendOtp`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ email }),
+      // });
+      // const data = await response.json();
+      const data = {
+        success:true
+      }
       if (data.success) {
         setOtpSent(true);
         toast.success("OTP sent to your email");
@@ -79,12 +83,6 @@ const EmailVerification = () => {
               type="email"
               placeholder="Email"
               value={email}
-
-              onChange={(e) => {
-                setEmail(e.target.value)
-              }}
-              className="mb-4 p-2 border border-gray-300 text-black rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
-
               onChange={(e) => setEmail(e.target.value)}
               className="mb-4 p-2 border border-gray-600 bg-gray-700 text-gray-200 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
 
@@ -104,12 +102,6 @@ const EmailVerification = () => {
               type="text"
               placeholder="Enter OTP"
               value={otp}
-
-              onChange={(e) => {
-                setOtp(e.target.value);
-              }}
-              className="mb-4 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-
               onChange={(e) => setOtp(e.target.value)}
               className="mb-4 p-2 border border-gray-600 bg-gray-700 text-gray-200 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
 
@@ -130,4 +122,3 @@ const EmailVerification = () => {
 
 export default EmailVerification;
 
-// shivharehariom68@gmail.com
