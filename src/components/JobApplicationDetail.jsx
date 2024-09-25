@@ -8,8 +8,8 @@ const JobApplicationDetail = ({ email }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const yy = "https://backend1-96bk.onrender.com";
-  
+  const yy="https://backend1-96bk.onrender.com";
+
   const [jobApplication, setJobApplication] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [proofUrl, setProofUrl] = useState("");
@@ -17,26 +17,24 @@ const JobApplicationDetail = ({ email }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentSection, setCurrentSection] = useState("personal-information");
   const [menuOpen, setMenuOpen] = useState(false);
-  
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!email) {
-      navigate("/");
+      navigate("/check");
     }
+
     const fetchJobApplication = async () => {
       try {
-       const response = await fetch(`${yy}/api/v1/jobApplication/details/${email}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        credentials: "include",
-      });
-      const data = await response.json();
-
-        if (response.ok) {  
+        const response = await fetch(`${yy}/api/v1/jobApplication/details/${email}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          credentials: "include",
+        });
+        const data = await response.json();
+        if (response.ok) {
           setJobApplication(data.jobApplication);
-          setIsLoading(false);
-
         } else {
           throw new Error(data.message || "Failed to fetch data");
         }
@@ -51,14 +49,16 @@ const JobApplicationDetail = ({ email }) => {
       fetchJobApplication();
     }
   }, [email, navigate]);
-  
+
+
   const openModal = (url) => {
-    if(url == null){
+    if(url==null){
       alert("No URL provided");
       setModalIsOpen(false);
-    } else {
-      setProofUrl(url);
-      setModalIsOpen(true);
+    }
+    else{
+    setProofUrl(url);
+    setModalIsOpen(true);
     }
   };
 
@@ -82,20 +82,56 @@ const JobApplicationDetail = ({ email }) => {
   };
 
   const handleInputChange = (e, field) => {
+    if (jobApplication.status === 'Accepted') {
+      alert('You have already been accepted for this job.');
+      return;
+    }
+
     const { type, value, files } = e.target;
     setLoading(true);
+    // Ensure that 'files' is not null
     if (type === "file" && files && files.length > 0) {
       const file = files[0];
+      const fileSize = file.size / 1024 / 1024; // in MB
+      const maxSize = field === 'cgpaProof' ? 5 : 1; // 5 MB for cgpaProof, 1 MB for others
+
+      if (fileSize > maxSize) {
+        alert(`File size should not exceed ${maxSize} MB.`);
+        return;
+      }
       setJobApplication({ ...jobApplication, [field]: file });
     } else {
       setJobApplication({ ...jobApplication, [field]: value });
     }
     setLoading(false);
   };
-  
+
+
   const saveChanges = async (field) => {
-    // Save changes logic here...
+    try {
+      const formData = new FormData();
+      formData.append(field, jobApplication[field]);
+
+      const endpoint = `${yy}/api/v1/jobApplication/update/${jobApplication._id}`;
+      const response = await fetch(endpoint, {
+        method: "PUT",
+        body: formData,
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        const updatedApplication = await response.json();
+        setJobApplication(updatedApplication.jobApplication);
+        setEditMode({});
+      } else {
+        const errorData = await response.json();
+        console.error("Error saving changes:", errorData);
+      }
+    } catch (error) {
+      console.error("Error saving changes:", error);
+    }
   };
+
 
   if (isLoading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -106,18 +142,42 @@ const JobApplicationDetail = ({ email }) => {
   }
 
   const renderField = (field, label, isEditable, inputType = "text") => (
-    <div className="field mb-4 flex flex-col md:flex-row items-start md:items-center">
-      <label className="mr-2 w-full md:w-1/4 font-semibold dark:text-gray-200">{label}:</label>
+    <div className="field mb-4 flex flex-col md:flex-row items-start md:items-center overflow-y-auto">
+      <strong className="mr-2 w-full md:w-1/4">{label}:</strong>
       {editMode[field] ? (
-        <input
-          type={inputType}
-          value={jobApplication[field]}
-          onChange={(e) => handleInputChange(e, field)}
-          className="border border-gray-300 p-2 rounded w-full bg-gray-100 dark:bg-gray-700 dark:text-white"
-        />
+        inputType === "select" ? (
+          <select
+            value={jobApplication[field]}
+            onChange={(e) => handleInputChange(e, field)}
+            className="border border-gray-900 p-2 rounded w-full bg-gray-600"
+          >
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        ) : inputType === "textarea" ? (
+          <textarea
+            value={jobApplication[field]}
+            onChange={(e) => handleInputChange(e, field)}
+            className="border border-gray-900 p-2 rounded w-full bg-gray-600"
+          />
+        ) : (
+          <input
+            type={inputType}
+            value={
+              inputType === "date"
+                ? jobApplication[field].split("T")[0]
+                : jobApplication[field]
+            }
+            onChange={(e) => handleInputChange(e, field)}
+            className="border border-gray-900 p-2 rounded w-full bg-gray-600"
+          />
+        )
       ) : (
-        <span className="w-full md:w-3/4 text-gray-700 dark:text-gray-300">
-          {jobApplication[field]}
+        <span className="w-full md:w-3/4">
+          {inputType === "date"
+            ? new Date(jobApplication[field]).toLocaleDateString()
+            : jobApplication[field]}
         </span>
       )}
       {isEditable && (
@@ -137,21 +197,69 @@ const JobApplicationDetail = ({ email }) => {
     </div>
   );
 
+  const renderFileField = (field, label, acceptType) => (
+    <div className="field mb-4 flex flex-col md:flex-row items-start md:items-center overflow-y-auto">
+      <strong className="mr-2 w-full md:w-1/4">{label} Proof:</strong>
+      {editMode[field] ? (
+        <div className="w-full md:w-3/4 flex items-center">
+          <input
+            type="file"
+            onChange={(e) => handleInputChange(e, field)}
+            accept={acceptType}
+            className="border border-gray-900 p-2 rounded w-full bg-gray-600"
+          />
+          <FaSave
+            onClick={() => saveChanges(field)}
+            className="ml-2 cursor-pointer text-gray-500"
+          />
+        </div>
+      ) : (
+        <div className="flex mt-2 md:mt-0">
+          <FaEye
+            className="ml-2 cursor-pointer text-gray-500"
+            onClick={() => openModal(jobApplication[field]?.url)}
+          />
+          <FaEdit
+            onClick={() => toggleEditMode(field)}
+            className="ml-2 cursor-pointer text-gray-500"
+          />
+        </div>
+      )}
+    </div>
+  );
+
+  const getStatusStyles = (status) => {
+    switch (status) {
+      case "Pending":
+        return "bg-yellow-100 text-yellow-700";
+      case "Approved":
+        return "bg-green-100 text-green-700";
+      case "Rejected":
+        return "bg-red-100 text-red-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
+
   const renderStatus = (status) => (
-    <div className={`status-indicator p-2 rounded ${status === 'Pending' ? 'bg-yellow-100 text-yellow-700' : status === 'Approved' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+    <div className={`status-indicator p-2 rounded ${getStatusStyles(status)}`}>
       {status}
     </div>
   );
 
   return (
     <>
-      <div className="container mx-auto p-6 bg-gray-50 dark:bg-gray-800 shadow-lg rounded-lg max-w-4xl overflow-hidden">
-        <div className="header mb-6 text-center flex flex-col md:flex-row items-center justify-between">
-          <h1 className="text-3xl font-bold dark:text-white">Job Application Details</h1>
+      <div className="job-application-detail p-6 bg-gray-900 shadow-lg rounded-lg max-w-4xl mx-auto overflow-y-auto">
+        <div className="header mb-6 text-center flex justify-between items-center">
+        {/* {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="text-black text-2xl">Loading...</div>
+        </div>
+      )} */}
+          <h1 className="text-3xl font-bold">Data Profile Detail</h1>
           {renderStatus(jobApplication.status)}
         </div>
-
-        <div className="profile-section flex flex-col md:flex-row items-center mb-6">
+        <div className="profile-header flex flex-col md:flex-row items-center mb-6">
           <div className="profile-photo mr-4 mb-4 md:mb-0">
             <img
               src={jobApplication.profilePhotoProof?.url || "default-profile-photo.jpg"}
@@ -160,96 +268,169 @@ const JobApplicationDetail = ({ email }) => {
             />
           </div>
           <div className="profile-info text-center md:text-left">
-            <h2 className="text-2xl font-semibold dark:text-gray-300">{jobApplication.fullName}</h2>
-            <p className="text-gray-600 dark:text-gray-400">{jobApplication.email}</p>
-            <p className="text-gray-600 dark:text-gray-400">{jobApplication.phone}</p>
+            <h2 className="text-2xl font-semibold">{jobApplication.fullName}</h2>
+            <p className="text-gray-600">{jobApplication.email}</p>
+            <p className="text-gray-600">{jobApplication.phone}</p>
           </div>
         </div>
-
         <div className="navbar mb-6">
-          <ul className="flex space-x-4 justify-center text-lg">
-            <li>
-              <button
-                onClick={() => setCurrentSection("personal-information")}
-                className={`px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700 ${currentSection === "personal-information" && "bg-gray-300 dark:bg-gray-700"}`}
-              >
-                Personal Info
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setCurrentSection("education")}
-                className={`px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700 ${currentSection === "education" && "bg-gray-300 dark:bg-gray-700"}`}
-              >
-                Education
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setCurrentSection("experience")}
-                className={`px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700 ${currentSection === "experience" && "bg-gray-300 dark:bg-gray-700"}`}
-              >
-                Experience
-              </button>
-            </li>
-
-            <li>
+          <div className="flex justify-between items-center md:hidden">
             <button
-                onClick={() => setCurrentSection("additional-information")}
-                className={`px-4 py-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700 ${currentSection === "additional-information" && "bg-gray-300 dark:bg-gray-700"}`}
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-2xl"
+            >
+              {menuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
+          <ul className={`md:flex space-x-4 justify-center text-lg ${menuOpen ? "block" : "hidden"} md:block`}>
+            <li>
+              <button
+                onClick={() => {
+                  setCurrentSection("personal-information");
+                  setMenuOpen(false);
+                }}
+                className={`${
+                  currentSection === "personal-information" ? "text-white" : "text-white"
+                } hover:underline px-4 py-2 rounded-lg ${
+                  currentSection === "personal-information" ? "text-white" : ""
+                }`}
               >
-                Additional Info
+                Personal Information
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  setCurrentSection("educational-background");
+                  setMenuOpen(false);
+                }}
+                className={`${
+                  currentSection === "educational-background" ? "text-whitw" : "text-white"
+                } hover:underline px-4 py-2 rounded-lg ${
+                  currentSection === "educational-background" ? "text-white" : ""
+                }`}
+              >
+                Educational Background
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  setCurrentSection("professional-experience");
+                  setMenuOpen(false);
+                }}
+                className={`${
+                  currentSection === "professional-experience" ? "text-white" : "text-white"
+                } hover:underline px-4 py-2 rounded-lg ${
+                  currentSection === "professional-experience" ? "text-white" : ""
+                }`}
+              >
+                Professional Experience
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  setCurrentSection("additional-information");
+                  setMenuOpen(false);
+                }}
+                className={`${
+                  currentSection === "additional-information" ? "text-white" : "text-white"
+                } hover:underline px-4 py-2 rounded-lg ${
+                  currentSection === "additional-information" ? "text-white" : ""
+                }`}
+              >
+                Additional Information
               </button>
             </li>
           </ul>
         </div>
-
-        {currentSection === "personal-information" && (
-          <>
-            {renderField("fullName", "Full Name", true)}
-            {renderField("email", "Email", false, "email")}
-            {renderField("phone", "Phone", true, "tel")}
-          </>
-        )}
-
-        {currentSection === "education" && (
-          <>
-            {renderField("branch", "Branch", true)}
-            {renderField("cgpa", "CGPA", true)}
-          </>
-        )}
-
-        {currentSection === "experience" && (
-          <>
-            {renderField("internship", "Internship", true)}
-            {renderField("projects", "Projects", true)}
-          </>
-        )}
-
-        {currentSection === "additional-information" && (
-          <>
-            {renderField("gap_year", "Gap Year", true)}
-            {renderField("skills", "Skills", true, "textarea")}
-            {renderField("references", "References", true)}
-          </>
-        )}        
+        <div className="details-container space-y-6">
+          {currentSection === "personal-information" && (
+            <section className="detail-card p-4 bg-gray-800 rounded">
+              <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+              {renderField("fullName", "Name", true)}
+              {renderField("email", "Email", false)}
+              {renderField("dob", "Date of Birth", true, "date")}
+              {renderField("gender", "Gender", true, "select")}
+              {renderField("address", "Address", true, "textarea")}
+            </section>
+          )}
+          {currentSection === "educational-background" && (
+            <div className="overflow-y max-h-60">
+            <section className="detail-card p-4 bg-gray-800 rounded ">
+              <h2 className="text-xl font-semibold mb-4">Educational Background</h2>
+              {renderField("cgpa", "CGPA", true)}
+              {renderField("ssc", "SSC", true)}
+              {renderField("hsc", "HSC", true)}
+              {renderField("gap_year", "Gap Year", true)}
+              {renderField("backlogs", "Backlogs", true)}
+              {renderFileField("cgpaProof", "CGPA", "application/pdf")}
+              {renderFileField("sscProof", "SSC", "application/pdf")}
+              {renderFileField("hscProof", "HSC", "application/pdf")}
+              {renderFileField("gap_yearProof", "Gap Year", "application/pdf")}
+              {renderFileField("profilePhotoProof", "Profile Photo", "image/jpeg,image/png,image/jpg")}
+            </section>
+            </div>
+          )}
+          {currentSection === "professional-experience" && (
+            <section className="detail-card p-4 bg-gray-800 rounded">
+              <h2 className="text-xl font-semibold mb-4">Professional Experience</h2>
+              {renderField("projects", "Projects", true, "textarea")}
+              {renderField("internship", "Internship", true)}
+              {renderFileField("internshipProof", "Internship", "application/pdf")}
+            </section>
+          )}
+          {currentSection === "additional-information" && (
+            <section className="detail-card p-4 bg-gray-800 rounded">
+              <h2 className="text-xl font-semibold mb-4">Additional Information</h2>
+              {renderField("branch", "Branch", true)}
+              {renderField("skills", "Skills", true, "textarea")}
+              {renderField("references", "References", true, "textarea")}
+              {renderField("message", "Message", false, "textarea")}
+            </section>
+          )}
+        </div>
       </div>
-
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Proof Modal"
-        className="bg-white p-4 rounded-lg shadow-lg dark:bg-gray-800"
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            width: "90%",
+            height: "90%",
+            maxWidth: "800px",
+          },
+        }}
       >
-        <button onClick={closeModal} className="text-red-500">Close</button>
+        <button onClick={closeModal} className="close-modal-button text-red-500">
+          Close
+        </button>
         <div className="proof-content w-full h-full">
           {proofUrl.endsWith(".pdf") ? (
-            <iframe id="pdf-iframe" src={proofUrl} className="w-full h-full" />
+            <div className="w-full h-full flex flex-col">
+              <iframe
+                id="pdf-iframe"
+                src={proofUrl}
+                className="w-full h-full flex-grow"
+              />
+            </div>
           ) : (
-            <img src={proofUrl} alt="Proof Document" className="w-full h-auto" />
-          )}
-          {proofUrl.endsWith(".pdf") && (
-            <button onClick={printDocument} className="mt-4 text-blue-500">Print</button>
+            <div>
+              <img src={proofUrl} alt="Proof Document" className="w-full h-auto" />
+              <div className="text-center mt-4">
+                <a href={proofUrl} target="_blank" rel="noopener noreferrer" className="text-gray-900 underline">
+                  Open Document
+                </a>
+              </div>
+            </div>
           )}
         </div>
       </Modal>
@@ -258,4 +439,3 @@ const JobApplicationDetail = ({ email }) => {
 };
 
 export default JobApplicationDetail;
-
