@@ -357,7 +357,7 @@ const JobApplicationDetail = ({ email }) => {
             </section>
           )}
           {currentSection === "educational-background" && (
-            <div className="overflow-y max-h-60">
+            <div className="overflow-y max-h-60 custom-scroll">
             <section className="detail-card p-4 bg-gray-800 rounded ">
               <h2 className="text-xl font-semibold mb-4">Educational Background</h2>
               {renderField("cgpa", "CGPA", true)}
