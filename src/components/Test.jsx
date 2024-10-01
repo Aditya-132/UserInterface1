@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const TestComponent = () => {
   const [step, setStep] = useState(1); // 1: Register, 2: Test Selection, 3: Answer Questions, 4: Show Score
-  const [userData, setUserData] = useState({ firstName: '', lastName: '', email: '', branch: '', regNo: '', testId: '' });
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    branch: "",
+    regNo: "",
+    testId: "",
+  });
   const [tests, setTests] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [responses, setResponses] = useState([]);
@@ -13,10 +20,12 @@ const TestComponent = () => {
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/v1/test/test'); // Replace with your API endpoint to fetch tests
+        const response = await axios.get(
+          " https://backend-1-qebm.onrender.com/api/v1/test/test"
+        ); // Replace with your API endpoint to fetch tests
         setTests(response.data.tests);
       } catch (error) {
-        console.error('Error fetching tests:', error);
+        console.error("Error fetching tests:", error);
       }
     };
 
@@ -33,10 +42,13 @@ const TestComponent = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/test/register', userData);
+      const response = await axios.post(
+        " https://backend-1-qebm.onrender.com/api/v1/test/register",
+        userData
+      );
       setStep(2); // Move to test selection step
     } catch (error) {
-      console.error('Error registering user:', error);
+      console.error("Error registering user:", error);
     }
   };
 
@@ -44,11 +56,13 @@ const TestComponent = () => {
   const handleTestSelection = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`/api/test/${userData.testId}/questions`);
+      const response = await axios.get(
+        `/api/test/${userData.testId}/questions`
+      );
       setQuestions(response.data.questions);
       setStep(3); // Move to answer questions step
     } catch (error) {
-      console.error('Error fetching questions:', error);
+      console.error("Error fetching questions:", error);
     }
   };
 
@@ -69,7 +83,7 @@ const TestComponent = () => {
     }));
 
     try {
-      const response = await axios.post('/api/submit-responses', {
+      const response = await axios.post("/api/submit-responses", {
         userId: userData.userId,
         testId: userData.testId,
         responses: formattedResponses,
@@ -77,7 +91,7 @@ const TestComponent = () => {
       setScore(response.data.score);
       setStep(4); // Move to show score step
     } catch (error) {
-      console.error('Error submitting responses:', error);
+      console.error("Error submitting responses:", error);
     }
   };
 
@@ -132,7 +146,10 @@ const TestComponent = () => {
               className="border rounded w-full p-2 mb-4"
               required
             />
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               Register
             </button>
           </form>
@@ -150,12 +167,19 @@ const TestComponent = () => {
               className="border rounded w-full p-2 mb-4"
               required
             >
-              <option value="" disabled>Select a Test</option>
+              <option value="" disabled>
+                Select a Test
+              </option>
               {tests.map((test) => (
-                <option key={test._id} value={test._id}>{test.test_name}</option>
+                <option key={test._id} value={test._id}>
+                  {test.test_name}
+                </option>
               ))}
             </select>
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               Start Test
             </button>
           </form>
@@ -176,7 +200,9 @@ const TestComponent = () => {
                         type="radio"
                         name={`question-${question._id}`}
                         value={option}
-                        onChange={() => handleAnswerSelection(question._id, option)}
+                        onChange={() =>
+                          handleAnswerSelection(question._id, option)
+                        }
                         className="form-radio"
                         required
                       />
@@ -186,7 +212,10 @@ const TestComponent = () => {
                 ))}
               </div>
             ))}
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               Submit Answers
             </button>
           </form>
@@ -196,7 +225,9 @@ const TestComponent = () => {
       {step === 4 && score !== null && (
         <div className="w-full max-w-md mx-auto">
           <h2 className="text-2xl font-bold mb-4">Your Score</h2>
-          <p className="text-xl">You scored {score} out of {questions.length}</p>
+          <p className="text-xl">
+            You scored {score} out of {questions.length}
+          </p>
         </div>
       )}
     </div>

@@ -18,7 +18,7 @@ const Login = () => {
     try {
       await axios
         .post(
-          "http://localhost:4000/api/v1/user/login",
+          " https://backend-1-qebm.onrender.com/api/v1/user/login",
           { email, password, confirmPassword, role: "Patient" },
           {
             withCredentials: true,
@@ -34,7 +34,6 @@ const Login = () => {
           setConfirmPassword("");
           // console.log(res.data);
         });
-        
     } catch (error) {
       toast.error(error.response.data.message);
     }
