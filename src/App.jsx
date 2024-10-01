@@ -42,7 +42,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          " https://backend-1-qebm.onrender.com/api/v1/user/patient/me",
+          "  https://backend1-96bk.onrender.com/api/v1/user/patient/me",
           {
             withCredentials: true,
           }

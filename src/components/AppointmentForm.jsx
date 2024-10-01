@@ -17,7 +17,7 @@ import {
 Modal.setAppElement("#root");
 
 const JobApplicationForm = () => {
-  const yy = " https://backend-1-qebm.onrender.com";
+  const yy = "  https://backend1-96bk.onrender.com";
   const [formData, setFormData] = useState({
     reg: "",
     fullName: "",
