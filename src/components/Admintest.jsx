@@ -16,7 +16,7 @@ const AdminTestManagement = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        " https://backend-1-qebm.onrender.com/api/v1/test/admin/create-test",
+        "  https://backend1-96bk.onrender.com/api/v1/test/admin/create-test",
         {
           testName: testName,
           description,
@@ -35,7 +35,7 @@ const AdminTestManagement = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        ` https://backend-1-qebm.onrender.com/api/v1/test/admin/add-question/${testId}`,
+        `  https://backend1-96bk.onrender.com/api/v1/test/admin/add-question/${testId}`,
         {
           testId: testId,
           questionText: questionText,

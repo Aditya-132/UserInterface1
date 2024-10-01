@@ -21,7 +21,7 @@ const TestComponent = () => {
     const fetchTests = async () => {
       try {
         const response = await axios.get(
-          " https://backend-1-qebm.onrender.com/api/v1/test/test"
+          "  https://backend1-96bk.onrender.com/api/v1/test/test"
         ); // Replace with your API endpoint to fetch tests
         setTests(response.data.tests);
       } catch (error) {
@@ -43,7 +43,7 @@ const TestComponent = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        " https://backend-1-qebm.onrender.com/api/v1/test/register",
+        "  https://backend1-96bk.onrender.com/api/v1/test/register",
         userData
       );
       setStep(2); // Move to test selection step

@@ -19,7 +19,7 @@ const Register1 = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        " https://backend-1-qebm.onrender.com/api/v1/test/register",
+        "  https://backend1-96bk.onrender.com/api/v1/test/register",
         formData
       );
       setMessage(response.data.message);

@@ -31,7 +31,7 @@ const PlacementReport = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          " https://backend-1-qebm.onrender.com/api/v1/jobApplication/getall",
+          "  https://backend1-96bk.onrender.com/api/v1/jobApplication/getall",
           {
             withCredentials: true,
           }

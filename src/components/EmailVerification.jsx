@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import JobApplicationDetail from "./JobApplicationDetail";
 
 const EmailVerification = () => {
-  const yy = " https://backend-1-qebm.onrender.com";
+  const yy = "  https://backend1-96bk.onrender.com";
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
