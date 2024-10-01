@@ -11,9 +11,16 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import './PlacementReport.css'; // Ensure your styles are applied
+import "./PlacementReport.css"; // Ensure your styles are applied
 
-ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+);
 
 const PlacementReport = () => {
   const [chartData, setChartData] = useState(null);
@@ -23,14 +30,23 @@ const PlacementReport = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/v1/jobApplication/getall", {
-          withCredentials: true,
-        });
+        const { data } = await axios.get(
+          " https://backend-1-qebm.onrender.com/api/v1/jobApplication/getall",
+          {
+            withCredentials: true,
+          }
+        );
 
         // Filter and count data for pie chart
-        const placed = data.jobApplications.filter(app => app.placed === "Placed").length;
-        const unplaced = data.jobApplications.filter(app => app.placed === "Rejected").length;
-        const pending = data.jobApplications.filter(app => app.status === "Pending").length;
+        const placed = data.jobApplications.filter(
+          (app) => app.placed === "Placed"
+        ).length;
+        const unplaced = data.jobApplications.filter(
+          (app) => app.placed === "Rejected"
+        ).length;
+        const pending = data.jobApplications.filter(
+          (app) => app.status === "Pending"
+        ).length;
 
         // Department-wise count for bar chart
         const departmentWise = data.jobApplications.reduce((acc, app) => {
@@ -52,9 +68,9 @@ const PlacementReport = () => {
         }, {});
 
         const avgSalaryLabels = Object.keys(salaryData);
-        const avgSalaryData = avgSalaryLabels.map(branch => (
-          salaryData[branch].totalSalary / salaryData[branch].count
-        ));
+        const avgSalaryData = avgSalaryLabels.map(
+          (branch) => salaryData[branch].totalSalary / salaryData[branch].count
+        );
 
         setChartData({
           pie: {
@@ -104,23 +120,26 @@ const PlacementReport = () => {
 
   return (
     <div className="placement-report">
-    
-       
       {chartData ? (
         <>
           <div className="chart-container">
             <h3>Placement Status</h3>
             <div className="chart-wrapper">
-              <Pie data={chartData.pie} options={{ maintainAspectRatio: false }} />
+              <Pie
+                data={chartData.pie}
+                options={{ maintainAspectRatio: false }}
+              />
             </div>
           </div>
           <div className="chart-container">
             <h3>Department-wise Applications</h3>
             <div className="chart-wrapper">
-              <Bar data={chartData.bar} options={{ maintainAspectRatio: false }} />
+              <Bar
+                data={chartData.bar}
+                options={{ maintainAspectRatio: false }}
+              />
             </div>
           </div>
-          
         </>
       ) : (
         <p>Loading charts...</p>

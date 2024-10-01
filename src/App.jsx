@@ -21,9 +21,8 @@ import RegisterAndSubmit from "./components/Test";
 import TestComponent from "./components/Test";
 import PlacementReport from "./components/PlacementReport";
 const App = () => {
-  const { isAuthenticated, setIsAuthenticated, setUser } =
-    useContext(Context);
-  
+  const { isAuthenticated, setIsAuthenticated, setUser } = useContext(Context);
+
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/user/patient/me",
+          " https://backend-1-qebm.onrender.com/api/v1/user/patient/me",
           {
             withCredentials: true,
           }
@@ -61,7 +60,10 @@ const App = () => {
   if (isMobile) {
     return (
       <div style={{ textAlign: "center", padding: "20px" }}>
-        <h1>This website is not accessible on mobile devices. Please open it on laptop or PC</h1>
+        <h1>
+          This website is not accessible on mobile devices. Please open it on
+          laptop or PC
+        </h1>
       </div>
     );
   }
@@ -69,24 +71,24 @@ const App = () => {
   return (
     <>
       {/* <Home /> */}
-    <Router>
-      <Routes>
-        <Route index path="/" element={<Home />} />
-        <Route path="/newApplicant" element={<Appointment />} />
-        <Route path="/check" element={<EmailVerification />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/admin" element={<AdminTestManagement />} />
-        <Route path="/reg0" element={<TestComponent />} />
-        <Route path="/placement-report" element={<PlacementReport />} />
-        {/* <Route index path="/" element={<EmailVerification/>} /> */}
-        {/* <Route path="/detail" element={<JobApplicationDetail/>} /> */}
-      </Routes>
-      {/* <Footer /> */}
-      <ToastContainer position="top-center" />
-    </Router>
+      <Router>
+        <Routes>
+          <Route index path="/" element={<Home />} />
+          <Route path="/newApplicant" element={<Appointment />} />
+          <Route path="/check" element={<EmailVerification />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/admin" element={<AdminTestManagement />} />
+          <Route path="/reg0" element={<TestComponent />} />
+          <Route path="/placement-report" element={<PlacementReport />} />
+          {/* <Route index path="/" element={<EmailVerification/>} /> */}
+          {/* <Route path="/detail" element={<JobApplicationDetail/>} /> */}
+        </Routes>
+        {/* <Footer /> */}
+        <ToastContainer position="top-center" />
+      </Router>
     </>
   );
 };

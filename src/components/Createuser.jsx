@@ -18,7 +18,10 @@ const Register1 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/test/register", formData);
+      const response = await axios.post(
+        " https://backend-1-qebm.onrender.com/api/v1/test/register",
+        formData
+      );
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response?.data?.message || "Registration failed.");
