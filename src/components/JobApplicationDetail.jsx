@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEdit, FaSave, FaBars, FaTimes } from "react-icons/fa";
 import Modal from "react-modal";
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
 
 const JobApplicationDetail = ({ email }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const yy="https://backend1-96bk.onrender.com";
+  const yy = "http://localhost:4000";
 
   const [jobApplication, setJobApplication] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -19,19 +19,22 @@ const JobApplicationDetail = ({ email }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!email) {
       navigate("/check");
     }
 
     const fetchJobApplication = async () => {
       try {
-        const response = await fetch(`${yy}/api/v1/jobApplication/details/${email}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          },
-          credentials: "include",
-        });
+        const response = await fetch(
+          `${yy}/api/v1/jobApplication/details/${email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+          }
+        );
         const data = await response.json();
         if (response.ok) {
           setJobApplication(data.jobApplication);
@@ -40,7 +43,9 @@ const JobApplicationDetail = ({ email }) => {
         }
       } catch (error) {
         console.error("Error fetching job application details:", error);
-        alert("Error fetching job application details. Please try again later.");
+        alert(
+          "Error fetching job application details. Please try again later."
+        );
       } finally {
         setIsLoading(false);
       }
@@ -50,15 +55,13 @@ const JobApplicationDetail = ({ email }) => {
     }
   }, [email, navigate]);
 
-
   const openModal = (url) => {
-    if(url==null){
+    if (url == null) {
       alert("No URL provided");
       setModalIsOpen(false);
-    }
-    else{
-    setProofUrl(url);
-    setModalIsOpen(true);
+    } else {
+      setProofUrl(url);
+      setModalIsOpen(true);
     }
   };
 
@@ -82,8 +85,8 @@ const JobApplicationDetail = ({ email }) => {
   };
 
   const handleInputChange = (e, field) => {
-    if (jobApplication.status === 'Accepted') {
-      alert('You have already been accepted for this job.');
+    if (jobApplication.status === "Accepted") {
+      alert("You have already been accepted for this job.");
       return;
     }
 
@@ -93,7 +96,7 @@ const JobApplicationDetail = ({ email }) => {
     if (type === "file" && files && files.length > 0) {
       const file = files[0];
       const fileSize = file.size / 1024 / 1024; // in MB
-      const maxSize = field === 'cgpaProof' ? 5 : 1; // 5 MB for cgpaProof, 1 MB for others
+      const maxSize = field === "cgpaProof" ? 5 : 1; // 5 MB for cgpaProof, 1 MB for others
 
       if (fileSize > maxSize) {
         alert(`File size should not exceed ${maxSize} MB.`);
@@ -105,7 +108,6 @@ const JobApplicationDetail = ({ email }) => {
     }
     setLoading(false);
   };
-
 
   const saveChanges = async (field) => {
     try {
@@ -132,13 +134,20 @@ const JobApplicationDetail = ({ email }) => {
     }
   };
 
-
   if (isLoading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
   }
 
   if (!jobApplication) {
-    return <div className="flex justify-center items-center h-screen">Error loading job application details.</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Error loading job application details.
+      </div>
+    );
   }
 
   const renderField = (field, label, isEditable, inputType = "text") => (
@@ -251,7 +260,7 @@ const JobApplicationDetail = ({ email }) => {
     <>
       <div className="job-application-detail p-6 bg-gray-900 shadow-lg rounded-lg max-w-4xl mx-auto overflow-y-auto">
         <div className="header mb-6 text-center flex justify-between items-center">
-        {/* {loading && (
+          {/* {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="text-black text-2xl">Loading...</div>
         </div>
@@ -262,27 +271,33 @@ const JobApplicationDetail = ({ email }) => {
         <div className="profile-header flex flex-col md:flex-row items-center mb-6">
           <div className="profile-photo mr-4 mb-4 md:mb-0">
             <img
-              src={jobApplication.profilePhotoProof?.url || "default-profile-photo.jpg"}
+              src={
+                jobApplication.profilePhotoProof?.url ||
+                "default-profile-photo.jpg"
+              }
               alt="Profile"
               className="rounded-full w-24 h-24"
             />
           </div>
           <div className="profile-info text-center md:text-left">
-            <h2 className="text-2xl font-semibold">{jobApplication.fullName}</h2>
+            <h2 className="text-2xl font-semibold">
+              {jobApplication.fullName}
+            </h2>
             <p className="text-white">{jobApplication.email}</p>
             <p className="text-white">{jobApplication.phone}</p>
           </div>
         </div>
         <div className="navbar mb-6">
           <div className="flex justify-between items-center md:hidden">
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="text-2xl"
-            >
+            <button onClick={() => setMenuOpen(!menuOpen)} className="text-2xl">
               {menuOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
-          <ul className={`md:flex space-x-4 justify-center text-lg ${menuOpen ? "block" : "hidden"} md:block`}>
+          <ul
+            className={`md:flex space-x-4 justify-center text-lg ${
+              menuOpen ? "block" : "hidden"
+            } md:block`}
+          >
             <li>
               <button
                 onClick={() => {
@@ -290,7 +305,9 @@ const JobApplicationDetail = ({ email }) => {
                   setMenuOpen(false);
                 }}
                 className={`${
-                  currentSection === "personal-information" ? "text-white" : "text-white"
+                  currentSection === "personal-information"
+                    ? "text-white"
+                    : "text-white"
                 } hover:underline px-4 py-2 rounded-lg ${
                   currentSection === "personal-information" ? "text-white" : ""
                 }`}
@@ -305,9 +322,13 @@ const JobApplicationDetail = ({ email }) => {
                   setMenuOpen(false);
                 }}
                 className={`${
-                  currentSection === "educational-background" ? "text-whitw" : "text-white"
+                  currentSection === "educational-background"
+                    ? "text-whitw"
+                    : "text-white"
                 } hover:underline px-4 py-2 rounded-lg ${
-                  currentSection === "educational-background" ? "text-white" : ""
+                  currentSection === "educational-background"
+                    ? "text-white"
+                    : ""
                 }`}
               >
                 Educational Background
@@ -320,9 +341,13 @@ const JobApplicationDetail = ({ email }) => {
                   setMenuOpen(false);
                 }}
                 className={`${
-                  currentSection === "professional-experience" ? "text-white" : "text-white"
+                  currentSection === "professional-experience"
+                    ? "text-white"
+                    : "text-white"
                 } hover:underline px-4 py-2 rounded-lg ${
-                  currentSection === "professional-experience" ? "text-white" : ""
+                  currentSection === "professional-experience"
+                    ? "text-white"
+                    : ""
                 }`}
               >
                 Professional Experience
@@ -335,9 +360,13 @@ const JobApplicationDetail = ({ email }) => {
                   setMenuOpen(false);
                 }}
                 className={`${
-                  currentSection === "additional-information" ? "text-white" : "text-white"
+                  currentSection === "additional-information"
+                    ? "text-white"
+                    : "text-white"
                 } hover:underline px-4 py-2 rounded-lg ${
-                  currentSection === "additional-information" ? "text-white" : ""
+                  currentSection === "additional-information"
+                    ? "text-white"
+                    : ""
                 }`}
               >
                 Additional Information
@@ -348,7 +377,9 @@ const JobApplicationDetail = ({ email }) => {
         <div className="details-container space-y-6">
           {currentSection === "personal-information" && (
             <section className="detail-card p-4 bg-gray-800 rounded">
-              <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Personal Information
+              </h2>
               {renderField("fullName", "Name", true)}
               {renderField("email", "Email", false)}
               {renderField("dob", "Date of Birth", true, "date")}
@@ -358,32 +389,50 @@ const JobApplicationDetail = ({ email }) => {
           )}
           {currentSection === "educational-background" && (
             <div className="overflow-y max-h-60 custom-scroll">
-            <section className="detail-card p-4 bg-gray-800 rounded ">
-              <h2 className="text-xl font-semibold mb-4">Educational Background</h2>
-              {renderField("cgpa", "CGPA", true)}
-              {renderField("ssc", "SSC", true)}
-              {renderField("hsc", "HSC", true)}
-              {renderField("gap_year", "Gap Year", true)}
-              {renderField("backlogs", "Backlogs", true)}
-              {renderFileField("cgpaProof", "CGPA", "application/pdf")}
-              {renderFileField("sscProof", "SSC", "application/pdf")}
-              {renderFileField("hscProof", "HSC", "application/pdf")}
-              {renderFileField("gap_yearProof", "Gap Year", "application/pdf")}
-              {renderFileField("profilePhotoProof", "Profile Photo", "image/jpeg,image/png,image/jpg")}
-            </section>
+              <section className="detail-card p-4 bg-gray-800 rounded ">
+                <h2 className="text-xl font-semibold mb-4">
+                  Educational Background
+                </h2>
+                {renderField("cgpa", "CGPA", true)}
+                {renderField("ssc", "SSC", true)}
+                {renderField("hsc", "HSC", true)}
+                {renderField("gap_year", "Gap Year", true)}
+                {renderField("backlogs", "Backlogs", true)}
+                {renderFileField("cgpaProof", "CGPA", "application/pdf")}
+                {renderFileField("sscProof", "SSC", "application/pdf")}
+                {renderFileField("hscProof", "HSC", "application/pdf")}
+                {renderFileField(
+                  "gap_yearProof",
+                  "Gap Year",
+                  "application/pdf"
+                )}
+                {renderFileField(
+                  "profilePhotoProof",
+                  "Profile Photo",
+                  "image/jpeg,image/png,image/jpg"
+                )}
+              </section>
             </div>
           )}
           {currentSection === "professional-experience" && (
             <section className="detail-card p-4 bg-gray-800 rounded">
-              <h2 className="text-xl font-semibold mb-4">Professional Experience</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Professional Experience
+              </h2>
               {renderField("projects", "Projects", true, "textarea")}
               {renderField("internship", "Internship", true)}
-              {renderFileField("internshipProof", "Internship", "application/pdf")}
+              {renderFileField(
+                "internshipProof",
+                "Internship",
+                "application/pdf"
+              )}
             </section>
           )}
           {currentSection === "additional-information" && (
             <section className="detail-card p-4 bg-gray-800 rounded">
-              <h2 className="text-xl font-semibold mb-4">Additional Information</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Additional Information
+              </h2>
               {renderField("branch", "Branch", true)}
               {renderField("skills", "Skills", true, "textarea")}
               {renderField("references", "References", true, "textarea")}
@@ -410,7 +459,10 @@ const JobApplicationDetail = ({ email }) => {
           },
         }}
       >
-        <button onClick={closeModal} className="close-modal-button text-red-500">
+        <button
+          onClick={closeModal}
+          className="close-modal-button text-red-500"
+        >
           Close
         </button>
         <div className="proof-content w-full h-full">
@@ -424,9 +476,18 @@ const JobApplicationDetail = ({ email }) => {
             </div>
           ) : (
             <div>
-              <img src={proofUrl} alt="Proof Document" className="w-full h-auto" />
+              <img
+                src={proofUrl}
+                alt="Proof Document"
+                className="w-full h-auto"
+              />
               <div className="text-center mt-4">
-                <a href={proofUrl} target="_blank" rel="noopener noreferrer" className="text-gray-900 underline">
+                <a
+                  href={proofUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-900 underline"
+                >
                   Open Document
                 </a>
               </div>

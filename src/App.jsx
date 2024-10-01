@@ -19,7 +19,7 @@ import AdminTestManagement from "./components/Admintest";
 import Register1 from "./components/Createuser";
 import RegisterAndSubmit from "./components/Test";
 import TestComponent from "./components/Test";
-
+import PlacementReport from "./components/PlacementReport";
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, setUser } =
     useContext(Context);
@@ -43,7 +43,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "https://backend-1-qebm.onrender.com/api/v1/user/patient/me",
+          "http://localhost:4000/api/v1/user/patient/me",
           {
             withCredentials: true,
           }
@@ -80,6 +80,7 @@ const App = () => {
         <Route path="/test" element={<Test />} />
         <Route path="/admin" element={<AdminTestManagement />} />
         <Route path="/reg0" element={<TestComponent />} />
+        <Route path="/placement-report" element={<PlacementReport />} />
         {/* <Route index path="/" element={<EmailVerification/>} /> */}
         {/* <Route path="/detail" element={<JobApplicationDetail/>} /> */}
       </Routes>

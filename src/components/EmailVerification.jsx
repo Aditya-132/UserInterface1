@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import JobApplicationDetail from "./JobApplicationDetail";
 
 const EmailVerification = () => {
-  const yy = "https://backend1-96bk.onrender.com";
+  const yy = "http://localhost:4000";
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -50,7 +50,7 @@ const EmailVerification = () => {
       });
       const data = await response.json();
       if (data.success) {
-        localStorage.setItem('token', data.token); // Store token
+        localStorage.setItem("token", data.token); // Store token
         toast.success("OTP verified");
         setIsVerified(true);
       } else {
@@ -62,17 +62,22 @@ const EmailVerification = () => {
     }
   };
 
-
   if (isVerified) {
     return <JobApplicationDetail email={email} />;
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900"> {/* Dark background */}
-      <div className="p-6 bg-gray-800 shadow-lg rounded-lg w-full max-w-md"> {/* Dark container */}
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      {" "}
+      {/* Dark background */}
+      <div className="p-6 bg-gray-800 shadow-lg rounded-lg w-full max-w-md">
+        {" "}
+        {/* Dark container */}
         {!otpSent ? (
           <>
-            <h2 className="text-2xl font-bold mb-4 text-gray-200 text-center"> {/* Light text */}
+            <h2 className="text-2xl font-bold mb-4 text-gray-200 text-center">
+              {" "}
+              {/* Light text */}
               Enter Your Email to View Details
             </h2>
             <input
@@ -81,26 +86,30 @@ const EmailVerification = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mb-4 p-2 border border-gray-600 bg-gray-700 text-gray-200 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-
             />
             <button
               onClick={sendOtp}
               disabled={loading || otpSent} // Disable button when loading or OTP is sent
-              className={`w-full bg-blue-600 text-white px-4 py-2 rounded transition-colors duration-300 ${loading || otpSent ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'}`}
+              className={`w-full bg-blue-600 text-white px-4 py-2 rounded transition-colors duration-300 ${
+                loading || otpSent
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-blue-700"
+              }`}
             >
               {loading ? "Please wait..." : "Send OTP"}
             </button>
           </>
         ) : (
           <>
-            <h2 className="text-xl font-bold mb-4 mt-6 text-gray-200 text-center">Enter OTP</h2>
+            <h2 className="text-xl font-bold mb-4 mt-6 text-gray-200 text-center">
+              Enter OTP
+            </h2>
             <input
               type="text"
               placeholder="Enter OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               className="mb-4 p-2 border border-gray-600 bg-gray-700 text-gray-200 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-
             />
             <button
               onClick={verifyOtp}
@@ -117,4 +126,3 @@ const EmailVerification = () => {
 };
 
 export default EmailVerification;
-
