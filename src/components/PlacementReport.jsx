@@ -93,9 +93,9 @@ const PlacementReport = () => {
   return (
     <div className="bg-gray-900 text-gray-100 min-h-screen p-8">
       {chartData ? (
-        <div className="space-y-10">
-          <div>
-            <h3 className="text-2xl mb-4">Placement Status</h3>
+        <div className="flex flex-wrap justify-around space-y-10">
+          <div className="w-full md:w-1/2 lg:w-1/3 mb-10">
+            <h3 className="text-2xl mb-4 text-center">Placement Status</h3>
             <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Pie
                 data={chartData.pie}
@@ -112,8 +112,8 @@ const PlacementReport = () => {
               />
             </div>
           </div>
-          <div>
-            <h3 className="text-2xl mb-4">Department-wise Applications</h3>
+          <div className="w-full md:w-1/2 lg:w-1/3 mb-10">
+            <h3 className="text-2xl mb-4 text-center">Department-wise Applications</h3>
             <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Bar
                 data={chartData.bar}
