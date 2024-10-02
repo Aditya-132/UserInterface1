@@ -43,13 +43,13 @@ const PlacementReport = () => {
         const unplaced = data.jobApplications.filter(
           (app) => app.placed === "Rejected"
         ).length;
-        const pending = data.jobApplications.filter(
-          (app) => app.status === "Pending"
-        ).length;
+        // const pending = data.jobApplications.filter(
+        //   (app) => app.status === "Pending"
+        // ).length;
 
         // Department-wise count for bar chart
         const departmentWise = data.jobApplications.reduce((acc, app) => {
-          acc[app.branch] = (acc[app.branch] || 0) + 1;
+          acc[app.branch ] = (acc[app.branch] || 0) + 1;
           return acc;
         }, {});
 
@@ -58,12 +58,12 @@ const PlacementReport = () => {
 
         setChartData({
           pie: {
-            labels: ["Placed", "Unplaced", "Pending"],
+            labels: ["Placed", "Unplaced"],
             datasets: [
               {
                 label: "Placement Status",
-                data: [placed, unplaced, pending],
-                backgroundColor: ["#34d399", "#ef4444", "#fbbf24"],
+                data: [placed, unplaced],
+                backgroundColor: ["#34d399", "#ef4444"],
               },
             ],
           },
