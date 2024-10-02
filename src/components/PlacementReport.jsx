@@ -24,7 +24,6 @@ ChartJS.register(
 
 const PlacementReport = () => {
   const [chartData, setChartData] = useState(null);
-  const [avgSalaryData, setAvgSalaryData] = useState(null); // New state for average salary chart
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,21 +56,6 @@ const PlacementReport = () => {
         const departmentLabels = Object.keys(departmentWise);
         const departmentData = Object.values(departmentWise);
 
-        // Average placement salary department-wise
-        const salaryData = data.jobApplications.reduce((acc, app) => {
-          if (app.placed === "Placed" && app.branch && app.salary) {
-            acc[app.branch] = acc[app.branch] || { totalSalary: 0, count: 0 };
-            acc[app.branch].totalSalary += app.salary;
-            acc[app.branch].count += 1;
-          }
-          return acc;
-        }, {});
-
-        const avgSalaryLabels = Object.keys(salaryData);
-        const avgSalaryData = avgSalaryLabels.map(
-          (branch) => salaryData[branch].totalSalary / salaryData[branch].count
-        );
-
         setChartData({
           pie: {
             labels: ["Placed", "Unplaced", "Pending"],
@@ -94,18 +78,6 @@ const PlacementReport = () => {
             ],
           },
         });
-
-        // Set average salary data for bar chart
-        setAvgSalaryData({
-          labels: avgSalaryLabels,
-          datasets: [
-            {
-              label: "Average Placement Salary (LPA)",
-              data: avgSalaryData,
-              backgroundColor: "#8e44ad",
-            },
-          ],
-        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -121,8 +93,8 @@ const PlacementReport = () => {
   return (
     <div className="bg-gray-900 text-gray-100 min-h-screen p-8">
       {chartData ? (
-        <>
-          <div className="mb-10">
+        <div className="space-y-10">
+          <div>
             <h3 className="text-2xl mb-4">Placement Status</h3>
             <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Pie
@@ -140,7 +112,7 @@ const PlacementReport = () => {
               />
             </div>
           </div>
-          <div className="mb-10">
+          <div>
             <h3 className="text-2xl mb-4">Department-wise Applications</h3>
             <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Bar
@@ -170,37 +142,7 @@ const PlacementReport = () => {
               />
             </div>
           </div>
-          <div className="mb-10">
-            <h3 className="text-2xl mb-4">Average Placement Salary (LPA)</h3>
-            <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
-              <Bar
-                data={avgSalaryData}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      labels: {
-                        color: "white",
-                      },
-                    },
-                    scales: {
-                      x: {
-                        ticks: {
-                          color: "white",
-                        },
-                      },
-                      y: {
-                        ticks: {
-                          color: "white",
-                        },
-                      },
-                    },
-                  },
-                }}
-              />
-            </div>
-          </div>
-        </>
+        </div>
       ) : (
         <p className="text-center text-lg">Loading charts...</p>
       )}
