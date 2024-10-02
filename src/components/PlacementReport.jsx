@@ -112,7 +112,7 @@ const PlacementReport = () => {
               />
             </div>
           </div>
-          <div className="w-full md:w-1/2 lg:w-1/3 mb-10">
+{/*           <div className="w-full md:w-1/2 lg:w-1/3 mb-10">
             <h3 className="text-2xl mb-4 text-center">Department-wise Applications</h3>
             <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Bar
@@ -142,7 +142,7 @@ const PlacementReport = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       ) : (
         <p className="text-center text-lg">Loading charts...</p>
       )}
