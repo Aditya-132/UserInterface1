@@ -63,7 +63,7 @@ const PlacementReport = () => {
               {
                 label: "Placement Status",
                 data: [placed, unplaced, pending],
-                backgroundColor: ["#4caf50", "#f44336", "#ffeb3b"],
+                backgroundColor: ["#34d399", "#ef4444", "#fbbf24"],
               },
             ],
           },
@@ -73,7 +73,7 @@ const PlacementReport = () => {
               {
                 label: "Applications by Department",
                 data: departmentData,
-                backgroundColor: "#42a5f5",
+                backgroundColor: "#60a5fa",
               },
             ],
           },
