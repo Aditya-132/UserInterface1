@@ -11,7 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import "./PlacementReport.css"; // Ensure your styles are applied
+import "tailwindcss/tailwind.css";
 
 ChartJS.register(
   ArcElement,
@@ -31,7 +31,7 @@ const PlacementReport = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          "  https://backend1-96bk.onrender.com/api/v1/jobApplication/getall",
+          "https://backend1-96bk.onrender.com/api/v1/jobApplication/getall",
           {
             withCredentials: true,
           }
@@ -119,30 +119,90 @@ const PlacementReport = () => {
   };
 
   return (
-    <div className="placement-report">
+    <div className="bg-gray-900 text-gray-100 min-h-screen p-8">
       {chartData ? (
         <>
-          <div className="chart-container">
-            <h3>Placement Status</h3>
-            <div className="chart-wrapper">
+          <div className="mb-10">
+            <h3 className="text-2xl mb-4">Placement Status</h3>
+            <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Pie
                 data={chartData.pie}
-                options={{ maintainAspectRatio: false }}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      labels: {
+                        color: "white",
+                      },
+                    },
+                  },
+                }}
               />
             </div>
           </div>
-          <div className="chart-container">
-            <h3>Department-wise Applications</h3>
-            <div className="chart-wrapper">
+          <div className="mb-10">
+            <h3 className="text-2xl mb-4">Department-wise Applications</h3>
+            <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Bar
                 data={chartData.bar}
-                options={{ maintainAspectRatio: false }}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      labels: {
+                        color: "white",
+                      },
+                    },
+                    scales: {
+                      x: {
+                        ticks: {
+                          color: "white",
+                        },
+                      },
+                      y: {
+                        ticks: {
+                          color: "white",
+                        },
+                      },
+                    },
+                  },
+                }}
+              />
+            </div>
+          </div>
+          <div className="mb-10">
+            <h3 className="text-2xl mb-4">Average Placement Salary (LPA)</h3>
+            <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
+              <Bar
+                data={avgSalaryData}
+                options={{
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      labels: {
+                        color: "white",
+                      },
+                    },
+                    scales: {
+                      x: {
+                        ticks: {
+                          color: "white",
+                        },
+                      },
+                      y: {
+                        ticks: {
+                          color: "white",
+                        },
+                      },
+                    },
+                  },
+                }}
               />
             </div>
           </div>
         </>
       ) : (
-        <p>Loading charts...</p>
+        <p className="text-center text-lg">Loading charts...</p>
       )}
     </div>
   );
