@@ -54,7 +54,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="relative group w-full">
+            {/* <div className="relative group w-full">
               <Link
                 to="/aptitude-test"
                 className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md"
@@ -63,7 +63,7 @@ const Home = () => {
                 <MdOutlineQuiz />
                 <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Aptitude Test</span>
               </Link>
-            </div>
+            </div> */}
 
             <div className="relative group w-full">
               <a
@@ -77,7 +77,7 @@ const Home = () => {
               </a>
             </div>
 
-            <div className="relative group w-full">
+            {/* <div className="relative group w-full">
               <div
                 onClick={() => setActiveComponent("placementReport")} // Set PlacementReport as the active component
                 className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
@@ -85,7 +85,7 @@ const Home = () => {
                 <MdAssessment />
                 <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Placement Report</span>
               </div>
-            </div>
+            </div> */}
 
             <div className="relative group w-full">
               <a

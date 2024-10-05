@@ -7,6 +7,7 @@ export const BasicDetails = ({ formData, handleChange, loading, sendOtp, otpSent
     <InputField label="Registration Number" name="reg" value={formData.reg} onChange={handleChange} disabled={loading} required />
     <InputField label="Full Name" name="fullName" value={formData.fullName} onChange={handleChange} disabled={loading} required />
     <InputField label="Email" type="email" name="email" value={formData.email} onChange={handleChange} disabled={loading} required />
+    <p className="text-sm text-gray-400">*Please enter your college email only</p>
     <button
       type="button"
       onClick={sendOtp}
