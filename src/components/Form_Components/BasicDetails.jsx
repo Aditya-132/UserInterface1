@@ -3,16 +3,15 @@
 import {InputField, SelectField} from "../Reusable_components/index";
 
 export const BasicDetails = ({ formData, handleChange, loading, sendOtp, otpSent, otpVerified }) => (
-  <div className="space-y-4">
+  <div className=" flex flex-col space-y-4 place-items-center">
     <InputField label="Registration Number" name="reg" value={formData.reg} onChange={handleChange} disabled={loading} required />
     <InputField label="Full Name" name="fullName" value={formData.fullName} onChange={handleChange} disabled={loading} required />
     <InputField label="Email" type="email" name="email" value={formData.email} onChange={handleChange} disabled={loading} required />
-    <p className="text-sm text-gray-400">*Please enter your college email only</p>
     <button
       type="button"
       onClick={sendOtp}
       disabled={otpSent || otpVerified || loading}
-      className={`py-2 px-4 rounded ${otpVerified ? "bg-green-500" : "bg-blue-500"} text-white hover:bg-blue-700 transition-colors`}
+      className={`py-2 px-4 rounded  ${otpVerified ? "bg-green-500" : "bg-blue-500"} text-white w-9/12 hover:bg-blue-700 transition-colors`}
     >
       {otpVerified ? "Verified" : "Verify Email"}
     </button>

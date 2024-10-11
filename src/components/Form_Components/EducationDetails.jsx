@@ -1,7 +1,7 @@
 import {InputField, SelectField, FileInput} from "../Reusable_components/index";
 
 export const EducationDetails = ({ formData, handleChange, handleFileChange, loading, branchesArray }) => (
-  <div className="space-y-4">
+  <div className="flex flex-col space-y-4 place-items-center">
     <InputField label="SSC Percentage" type="number" name="ssc" value={formData.ssc} onChange={handleChange} disabled={loading} required />
     <FileInput label="Upload SSC Proof" name="sscProof" onChange={handleFileChange} disabled={loading} required />
     <InputField label="HSC Percentage" type="number" name="hsc" value={formData.hsc} onChange={handleChange} disabled={loading} required />
