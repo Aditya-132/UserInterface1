@@ -1,5 +1,5 @@
 export const FileInput = ({ label, name, onChange, disabled, required }) => (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-9/12">
         <label className="font-semibold mb-2 dark:text-gray-300">{label}{required && <span className="text-red-500">*</span>}</label>
         <input
             type="file"

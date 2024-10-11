@@ -303,18 +303,15 @@ const JobApplicationForm = () => {
           : "bg-gray-100 text-gray-900"
       } transition-colors duration-300`}
     >
-      <div className="container mx-auto p-6">
-        <div className="flex justify-between items-center mb-6">
+      <div className="container mx-auto p-6 shadow-[0_40px_500px_-15px_rgba(255,255,255,0.2)] border-blue-300	 border-2 rounded-3xl flex flex-col w-6/12">
+        <div className="flex justify-center items-center mb-6 ">
           <h2 className="text-3xl font-bold">Student Data Form</h2>
-          <button onClick={toggleTheme} className="text-2xl focus:outline-none">
-            {theme === "dark" ? <FaSun /> : <FaMoon />}
-          </button>
         </div>
 
         {!formSubmitted ? (
           <form onSubmit={handleJobApplication} className="space-y-6">
             {/* Progress Indicator */}
-            <ProgressIndicator currentStep={currentStep} />
+            <ProgressIndicator currentStep={currentStep} className="flex flex-col items-center justify-center" />
 
             {/* Step Sections */}
             {currentStep === 1 && (
@@ -368,12 +365,12 @@ const JobApplicationForm = () => {
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between">
+            <div className="flex flex-row justify-evenly">
               {currentStep > 1 && (
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="py-2 px-4 rounded bg-gray-500 text-white hover:bg-gray-700 transition-colors"
+                  className="py-2 px-4 w-56 rounded bg-gray-500 text-white hover:bg-gray-700 transition-colors"
                 >
                   Back
                 </button>
@@ -382,7 +379,7 @@ const JobApplicationForm = () => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="py-2 px-4 rounded bg-blue-500 text-white hover:bg-blue-700 transition-colors"
+                  className="p-3  w-56 rounded bg-blue-500 text-white hover:bg-blue-700 transition-colors"
                 >
                   Next
                 </button>
