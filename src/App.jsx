@@ -59,9 +59,9 @@ const App = () => {
 
   if (isMobile) {
     return (
-      <div style={{ textAlign: "center", padding: "20px" }}>
+      <div style={{ textAlign: "center", padding: "20px",justifyContent: "center" }}>
         <h1>
-          This website is not accessible on mobile devices. Please open it on
+          This website is not accessible on mobile devices due to Development going on . Please open it on
           laptop or PC
         </h1>
       </div>

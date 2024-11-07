@@ -13,14 +13,7 @@ import {
 } from "chart.js";
 import "tailwindcss/tailwind.css";
 
-ChartJS.register(
-  ArcElement,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend
-);
+ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const PlacementReport = () => {
   const [chartData, setChartData] = useState(null);
@@ -36,25 +29,19 @@ const PlacementReport = () => {
           }
         );
 
-        // Filter and count data for pie chart
-        const placed = data.jobApplications.filter(
+        // Filter placed students
+        const placedStudents = data.jobApplications.filter(
           (app) => app.placed === "Placed"
-        ).length;
-        const unplaced = data.jobApplications.filter(
-          (app) => app.placed === "Rejected"
-        ).length;
-        // const pending = data.jobApplications.filter(
-        //   (app) => app.status === "Pending"
-        // ).length;
+        );
 
-        // Department-wise count for bar chart
-        const departmentWise = data.jobApplications.reduce((acc, app) => {
-          acc[app.branch ] = (acc[app.branch] || 0) + 1;
+        // Department-wise count for placed students only
+        const departmentWisePlaced = placedStudents.reduce((acc, app) => {
+          acc[app.branch] = (acc[app.branch] || 0) + 1;
           return acc;
         }, {});
 
-        const departmentLabels = Object.keys(departmentWise);
-        const departmentData = Object.values(departmentWise);
+        const departmentLabels = Object.keys(departmentWisePlaced);
+        const departmentData = Object.values(departmentWisePlaced);
 
         setChartData({
           pie: {
@@ -62,8 +49,17 @@ const PlacementReport = () => {
             datasets: [
               {
                 label: "Placement Status",
-                data: [placed, unplaced],
-                backgroundColor: ["#34d399", "#ef4444"],
+                data: [placedStudents.length, data.jobApplications.length - placedStudents.length],
+                backgroundColor: [
+                  "rgba(52, 211, 153, 0.8)",  // Soft green
+                  "rgba(239, 68, 68, 0.8)",   // Soft red
+                ],
+                hoverBackgroundColor: [
+                  "rgba(52, 211, 153, 1)",    // Darker green on hover
+                  "rgba(239, 68, 68, 1)",     // Darker red on hover
+                ],
+                borderColor: "#fff",
+                borderWidth: 2,
               },
             ],
           },
@@ -71,9 +67,13 @@ const PlacementReport = () => {
             labels: departmentLabels,
             datasets: [
               {
-                label: "Applications by Department",
+                label: "Placed Students by Department",
                 data: departmentData,
-                backgroundColor: "#60a5fa",
+                backgroundColor: "rgba(96, 165, 250, 0.8)", // Soft blue
+                hoverBackgroundColor: "rgba(96, 165, 250, 1)", // Darker blue on hover
+                borderColor: "#fff",
+                borderWidth: 2,
+                barPercentage: 0.5,
               },
             ],
           },
@@ -95,7 +95,7 @@ const PlacementReport = () => {
       {chartData ? (
         <div className="flex flex-wrap justify-around">
           <div className="w-full md:w-1/2 p-4">
-            <h3 className="text-2xl mb-4 text-center">Placement Status</h3>
+            <h3 className="text-2xl mb-4 text-center">Placement Status of 2024-25</h3>
             <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Pie
                 data={chartData.pie}
@@ -103,17 +103,28 @@ const PlacementReport = () => {
                   maintainAspectRatio: false,
                   plugins: {
                     legend: {
+                      display: true,
+                      position: 'bottom',
                       labels: {
-                        color: "white",
+                        color: "#fff",
+                        font: {
+                          size: 14,
+                          family: "Arial, sans-serif",
+                        },
+                        boxWidth: 20,
                       },
                     },
+                  },
+                  animation: {
+                    animateScale: true,
+                    animateRotate: true,
                   },
                 }}
               />
             </div>
           </div>
           <div className="w-full md:w-1/2 p-4">
-            <h3 className="text-2xl mb-4 text-center">Department-wise Applications</h3>
+            <h3 className="text-2xl mb-4 text-center">Placed Students</h3>
             <div className="relative h-80 bg-gray-800 p-4 rounded-lg shadow-lg">
               <Bar
                 data={chartData.bar}
@@ -121,22 +132,46 @@ const PlacementReport = () => {
                   maintainAspectRatio: false,
                   plugins: {
                     legend: {
+                      display: true,
+                      position: 'top',
                       labels: {
+                        color: "#fff",
+                        font: {
+                          size: 14,
+                          family: "Arial, sans-serif",
+                        },
+                        boxWidth: 20,
+                      },
+                    },
+                  },
+                  scales: {
+                    x: {
+                      ticks: {
                         color: "white",
-                      },
-                    },
-                    scales: {
-                      x: {
-                        ticks: {
-                          color: "white",
+                        font: {
+                          size: 12,
                         },
                       },
-                      y: {
-                        ticks: {
-                          color: "white",
-                        },
+                      grid: {
+                        display: false,
                       },
                     },
+                    y: {
+                      ticks: {
+                        color: "white",
+                        font: {
+                          size: 12,
+                        },
+                        beginAtZero: true,
+                      },
+                      grid: {
+                        color: "rgba(255, 255, 255, 0.1)",
+                      },
+                    },
+                  },
+                  animation: {
+                    duration: 1500,
+                    easing: "easeInOutQuart",
                   },
                 }}
               />
