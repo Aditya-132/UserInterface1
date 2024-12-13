@@ -242,9 +242,9 @@ const JobApplicationForm = () => {
   };
 
   const handleNext = () => {
-    if (validateStep(currentStep)) {
+    // if (validateStep(currentStep)) {
       setCurrentStep((prev) => prev + 1);
-    }
+    // }
   };
 
   const handleBack = () => {
@@ -291,7 +291,7 @@ const JobApplicationForm = () => {
   };
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    setTheme((prev) => (prev === "dark" ? "dark" : "dark"));
     // setOtpVerified(true)
   };
 
@@ -300,7 +300,7 @@ const JobApplicationForm = () => {
       className={`min-h-screen ${
         theme === "dark"
           ? "bg-gray-900 text-white"
-          : "bg-gray-100 text-gray-900"
+          : "bg-gray-900 text-white"
       } transition-colors duration-300`}
     >
       <div className="container mx-auto p-6 shadow-[0_40px_500px_-15px_rgba(255,255,255,0.2)] border-blue-300	 border-2 rounded-3xl flex flex-col w-6/12">
