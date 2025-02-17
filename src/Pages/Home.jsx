@@ -4,6 +4,8 @@ import { FaUserPlus, FaEdit, FaBars } from "react-icons/fa";
 import { MdOutlineQuiz, MdWorkOutline, MdAssessment, MdWeb, MdEventAvailable } from "react-icons/md";
 import EmailVerification from "../components/EmailVerification";
 import PlacementReport from "../components/PlacementReport"; // Import PlacementReport component
+import Electionresult from "../components/Electionresult";
+import VotingPortal from "../components/Votingportal";
 
 const Home = () => {
   const [activeComponent, setActiveComponent] = useState("home"); // Manage the active component state
@@ -53,6 +55,25 @@ const Home = () => {
                 <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Change / View Application</span>
               </div>
             </div>
+            <div className="relative group w-full">
+              <div
+                onClick={() => setActiveComponent("Electionresult")}
+                className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
+              >
+                <FaEdit />
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Change / View Application</span>
+              </div>
+            </div>
+            <div className="relative group w-full">
+              <div
+                onClick={() => setActiveComponent("Voting")}
+                className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
+              >
+                <FaEdit />
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Change / View Application</span>
+              </div>
+            </div>
+            
 
             {/* <div className="relative group w-full">
               <Link
@@ -115,7 +136,7 @@ const Home = () => {
 
         {/* Footer */}
         <div className={`${isSidebarOpen ? "block" : "hidden"} md:block p-6 text-sm text-center text-gray-500`}>
-          &copy; 2024 SGGSIE&T | T&P Cell | All Rights Reserved
+          &copy; adi & team
         </div>
       </div>
 
@@ -125,7 +146,11 @@ const Home = () => {
           <EmailVerification />
         ) : activeComponent === "placementReport" ? (
           <PlacementReport /> // Render PlacementReport when activeComponent is set to "placementReport"
-        ) : (
+        ) : activeComponent === "Electionresult" ? (
+          <Electionresult /> // Render PlacementReport when activeComponent is set to "placementReport"
+        ) : activeComponent === "Voting" ? (
+          <VotingPortal /> // Render PlacementReport when activeComponent is set to "placementReport"
+        ) :(
           <img src="/home.jpg" alt="Home Illustration" className="rounded-lg shadow-lg max-w-full max-h-full" />
         )}
       </div>

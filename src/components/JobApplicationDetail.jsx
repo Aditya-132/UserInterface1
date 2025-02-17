@@ -10,6 +10,7 @@ const JobApplicationDetail = ({ email }) => {
   const [loading, setLoading] = useState(false);
   const yy = "  http://localhost:4000";
 
+
   const [jobApplication, setJobApplication] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [proofUrl, setProofUrl] = useState("");

@@ -18,6 +18,7 @@ Modal.setAppElement("#root");
 
 const JobApplicationForm = () => {
   const yy = "  http://localhost:4000";
+
   const [formData, setFormData] = useState({
     reg: "",
     fullName: "",

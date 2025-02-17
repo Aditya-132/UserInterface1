@@ -23,7 +23,9 @@ const PlacementReport = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
+
           "http://localhost:4000/api/v1/jobApplication/getall",
+
           {
             withCredentials: true,
           }
