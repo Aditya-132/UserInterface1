@@ -143,7 +143,7 @@ const JobApplicationForm = () => {
       setIsModalOpen(true);
     } catch (error) {
       console.log(error);
-      toast.error("Failed to send OTP");
+      toast.error("Invalid email! Only college email IDs are allowed");
     }
     setLoading(false);
   };
