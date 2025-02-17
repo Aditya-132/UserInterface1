@@ -17,7 +17,8 @@ import {
 Modal.setAppElement("#root");
 
 const JobApplicationForm = () => {
-  const yy = "  http://localhost:40004";
+  const yy = "  http://localhost:4000";
+
   const [formData, setFormData] = useState({
     reg: "",
     fullName: "",
@@ -143,7 +144,7 @@ const JobApplicationForm = () => {
       setIsModalOpen(true);
     } catch (error) {
       console.log(error);
-      toast.error("Failed to send OTP");
+      toast.error("Invalid email! Only college email IDs are allowed");
     }
     setLoading(false);
   };

@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import JobApplicationDetail from "./JobApplicationDetail";
 
 const EmailVerification = () => {
-  const yy = "  http://localhost:40004.onrender.com";
+  const yy = "http://localhost:4000";
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -14,6 +14,11 @@ const EmailVerification = () => {
   const navigate = useNavigate();
 
   const sendOtp = async () => {
+    // Check if the email ends with the college domain before sending OTP.
+    if (!email.trim().endsWith("@sggs.ac.in")) {
+      toast.error("Invalid email! Only college emails are allowed.");
+      return;
+    }
     setLoading(true); // Start loading
     try {
       console.log(email);
@@ -25,15 +30,16 @@ const EmailVerification = () => {
         body: JSON.stringify({ email }),
       });
       const data = await response.json();
+      // If OTP is successfully sent, proceed.
       if (data.success) {
         setOtpSent(true);
-        toast.success("OTP sent to your email");
+        toast.success("OTP sent to your college email");
       } else {
-        toast.error("Failed to send OTP");
+        toast.error("Invalid email! Only college email IDs are allowed");
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
-      toast.error("Failed to send OTP");
+      toast.error("Invalid email! Only college email IDs are allowed");
     } finally {
       setLoading(false); // Stop loading
     }
@@ -68,16 +74,12 @@ const EmailVerification = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
-      {" "}
       {/* Dark background */}
       <div className="p-6 bg-gray-800 shadow-lg rounded-lg w-full max-w-md">
-        {" "}
         {/* Dark container */}
         {!otpSent ? (
           <>
             <h2 className="text-2xl font-bold mb-4 text-gray-200 text-center">
-              {" "}
-              {/* Light text */}
               Enter Your Email to View Details
             </h2>
             <input
