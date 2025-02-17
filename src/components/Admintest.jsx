@@ -36,7 +36,11 @@ const AdminTestManagement = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
+<<<<<<< HEAD
         `  http://localhost:4000/api/v1/test/admin/add-question/${testId}`,
+=======
+        `  http://localhost:40004/api/v1/test/admin/add-question/${testId}`,
+>>>>>>> fc642349828347c7e9eef2ea1650b3ed431bc166
         {
           testId: testId,
           questionText: questionText,
