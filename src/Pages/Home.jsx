@@ -6,6 +6,7 @@ import EmailVerification from "../components/EmailVerification";
 import PlacementReport from "../components/PlacementReport"; // Import PlacementReport component
 import Electionresult from "../components/Electionresult";
 import VotingPortal from "../components/Votingportal";
+import BookingForm from "../components/BookingFaci";
 
 const Home = () => {
   const [activeComponent, setActiveComponent] = useState("home"); // Manage the active component state
@@ -61,7 +62,7 @@ const Home = () => {
                 className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
               >
                 <FaEdit />
-                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Change / View Application</span>
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}> ElectionResult</span>
               </div>
             </div>
             <div className="relative group w-full">
@@ -70,7 +71,16 @@ const Home = () => {
                 className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
               >
                 <FaEdit />
-                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Change / View Application</span>
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Voting section</span>
+              </div>
+            </div>
+            <div className="relative group w-full">
+              <div
+                onClick={() => setActiveComponent("Book")}
+                className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
+              >
+                <FaEdit />
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Book section</span>
               </div>
             </div>
             
@@ -150,6 +160,8 @@ const Home = () => {
           <Electionresult /> // Render PlacementReport when activeComponent is set to "placementReport"
         ) : activeComponent === "Voting" ? (
           <VotingPortal /> // Render PlacementReport when activeComponent is set to "placementReport"
+        ) :activeComponent === "Book" ? (
+          <BookingForm /> // Render PlacementReport when activeComponent is set to "placementReport"
         ) :(
           <img src="/home.jpg" alt="Home Illustration" className="rounded-lg shadow-lg max-w-full max-h-full" />
         )}

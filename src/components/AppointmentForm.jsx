@@ -17,11 +17,13 @@ import {
 Modal.setAppElement("#root");
 
 const JobApplicationForm = () => {
-  const yy = "  http://localhost:40004";
+  const yy = "  http://localhost:4000";
   const [formData, setFormData] = useState({
     reg: "",
     fullName: "",
     email: "",
+    parentemail: "",
+    heademail: "",
     phone: "",
     cgpa: "",
     cgpaProof: null,
@@ -200,6 +202,8 @@ const JobApplicationForm = () => {
         reg: "",
         fullName: "",
         email: "",
+        parentemail: "",
+        heademail: "",
         phone: "",
         cgpa: "",
         cgpaProof: null,
@@ -274,7 +278,7 @@ const JobApplicationForm = () => {
   const getRequiredFields = (step) => {
     switch (step) {
       case 1:
-        return ["reg", "fullName", "email", "phone", "dob", "gender"];
+        return ["reg", "fullName", "email", "phone", "dob", "gender","heademail","parentemail"];
       case 2:
         return ["ssc", "sscProof", "hsc", "hscProof", "cgpa", "cgpaProof"];
       case 3:

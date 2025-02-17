@@ -18,5 +18,7 @@ export const BasicDetails = ({ formData, handleChange, loading, sendOtp, otpSent
     <InputField label="Mobile Number" name="phone" value={formData.phone} onChange={handleChange} disabled={loading} required />
     <InputField label="Date of Birth" type="date" name="dob" value={formData.dob} onChange={handleChange} disabled={loading} required />
     <SelectField label="Gender" name="gender" value={formData.gender} options={["", "Male", "Female", "Other"]} onChange={handleChange} disabled={loading} required />
+    <InputField label="parentEmail" type="email" name="parentemail" value={formData.parentemail} onChange={handleChange} disabled={loading} required />
+    <InputField label="HeadEmail" type="email" name="heademail" value={formData.heademail} onChange={handleChange} disabled={loading} required />
   </div>
 );
