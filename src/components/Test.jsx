@@ -43,11 +43,7 @@ const TestComponent = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-<<<<<<< HEAD
         "  http://localhost:4000/api/v1/test/register",
-=======
-        "  http://localhost:40004/api/v1/test/register",
->>>>>>> fc642349828347c7e9eef2ea1650b3ed431bc166
         userData
       );
       setStep(2); // Move to test selection step
