@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Spline from '@splinetool/react-spline';
 import { Link } from "react-router-dom";
 import { FaUserPlus, FaEdit, FaBars } from "react-icons/fa";
 import { MdOutlineQuiz, MdWorkOutline, MdAssessment, MdWeb, MdEventAvailable } from "react-icons/md";
@@ -192,8 +193,12 @@ const Home = () => {
         </div>
       </div>
 
+
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center bg-gray-900 p-5 md:p-20">
+      <div className="flex-1 flex flex-colitems-center justify-center ">
+      
+       
+      
         {activeComponent === "emailVerification" ? (
           <EmailVerification />
         ) : activeComponent === "placementReport" ? (
@@ -213,11 +218,15 @@ const Home = () => {
         ) :activeComponent === "Avai" ? (
           <Facility /> // Render PlacementReport when activeComponent is set to "placementReport"
         ) :(
-          <img src="/home.jpg" alt="Home Illustration" className="rounded-lg shadow-lg max-w-full max-h-full" />
+          <div className="w-full h-full flex items-center justify-center">
+      <Spline scene="https://prod.spline.design/tx4OR2QBvwzMg3la/scene.splinecode" style={{ width: '100%', height: '640px' }} />
+             </div>
+
         )}
       </div>
-    </div>
+      </div>
   );
 };
 
 export default Home;
+

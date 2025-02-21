@@ -19,7 +19,7 @@ const Register1 = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "  http://localhost:40004/api/v1/test/register",
+        "  http://localhost:4000/api/v1/test/register",
         formData
       );
       setMessage(response.data.message);

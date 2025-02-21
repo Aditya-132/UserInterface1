@@ -8,7 +8,8 @@ const JobApplicationDetail = ({ email }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const yy = "  http://localhost:40004";
+  const yy = "  http://localhost:4000";
+
 
   const [jobApplication, setJobApplication] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);

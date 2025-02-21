@@ -42,7 +42,8 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "  http://localhost:40004/api/v1/user/patient/me",
+          "  http://localhost:4000/api/v1/user/patient/me",
+
           {
             withCredentials: true,
           }
@@ -57,7 +58,7 @@ const App = () => {
     fetchUser();
   }, [isAuthenticated]);
 
-  if (isMobile) {
+  /*if (isMobile) {
     return (
       <div style={{ textAlign: "center", padding: "20px",justifyContent: "center" }}>
         <h1>
@@ -66,7 +67,7 @@ const App = () => {
         </h1>
       </div>
     );
-  }
+  }*/
 
   return (
     <>

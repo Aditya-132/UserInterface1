@@ -18,7 +18,7 @@ const Login = () => {
     try {
       await axios
         .post(
-          "  http://localhost:40004/api/v1/user/login",
+          "  http://localhost:4000/api/v1/user/login",
           { email, password, confirmPassword, role: "Patient" },
           {
             withCredentials: true,
