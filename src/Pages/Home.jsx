@@ -7,6 +7,10 @@ import PlacementReport from "../components/PlacementReport"; // Import Placement
 import Electionresult from "../components/Electionresult";
 import VotingPortal from "../components/Votingportal";
 import BookingForm from "../components/BookingFaci";
+import Application from "../components/Application";
+import ComplaintForm from "../components/Complaint";
+import ComplaintTable from "../components/ComplaintTable";
+import Facility from "../components/FaciltyData";
 
 const Home = () => {
   const [activeComponent, setActiveComponent] = useState("home"); // Manage the active component state
@@ -83,6 +87,43 @@ const Home = () => {
                 <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Book section</span>
               </div>
             </div>
+            <div className="relative group w-full">
+              <div
+                onClick={() => setActiveComponent("Aap")}
+                className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
+              >
+                <FaEdit />
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Application Section</span>
+              </div>
+            </div>
+            <div className="relative group w-full">
+            <div
+                onClick={() => setActiveComponent("Complaint")}
+                className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
+              >
+                <FaEdit />
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Complaint Section</span>
+              </div>
+            </div>
+            <div className="relative group w-full">
+            <div
+                onClick={() => setActiveComponent("Comtable")}
+                className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
+              >
+                <FaEdit />
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Complaint Table</span>
+              </div>
+            </div>
+            <div className="relative group w-full">
+            <div
+                onClick={() => setActiveComponent("Avai")}
+                className="w-full flex items-center space-x-2 p-3 hover:bg-gray-700 rounded-md cursor-pointer"
+              >
+                <FaEdit />
+                <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>AFacilty Aviabilty Table</span>
+              </div>
+            </div>
+            
             
 
             {/* <div className="relative group w-full">
@@ -107,6 +148,7 @@ const Home = () => {
                 <span className={`${isSidebarOpen ? "block" : "hidden"} md:block`}>Internships</span>
               </a>
             </div>
+            
 
             {/* <div className="relative group w-full">
               <div
@@ -162,6 +204,14 @@ const Home = () => {
           <VotingPortal /> // Render PlacementReport when activeComponent is set to "placementReport"
         ) :activeComponent === "Book" ? (
           <BookingForm /> // Render PlacementReport when activeComponent is set to "placementReport"
+        ) :activeComponent === "Aap" ? (
+          <Application /> // Render PlacementReport when activeComponent is set to "placementReport"
+        ) :activeComponent === "Complaint" ? (
+          <ComplaintForm /> // Render PlacementReport when activeComponent is set to "placementReport"
+        ) :activeComponent === "Comtable" ? (
+          <ComplaintTable /> // Render PlacementReport when activeComponent is set to "placementReport"
+        ) :activeComponent === "Avai" ? (
+          <Facility /> // Render PlacementReport when activeComponent is set to "placementReport"
         ) :(
           <img src="/home.jpg" alt="Home Illustration" className="rounded-lg shadow-lg max-w-full max-h-full" />
         )}
