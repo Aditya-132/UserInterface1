@@ -58,7 +58,7 @@ const App = () => {
     fetchUser();
   }, [isAuthenticated]);
 
-  if (isMobile) {
+  /*if (isMobile) {
     return (
       <div style={{ textAlign: "center", padding: "20px",justifyContent: "center" }}>
         <h1>
@@ -67,7 +67,7 @@ const App = () => {
         </h1>
       </div>
     );
-  }
+  }*/
 
   return (
     <>
